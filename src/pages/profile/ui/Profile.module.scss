@@ -1,36 +1,61 @@
 @use '../../../shared/styles/mixins' as *;
 
-.userDataContainer {
-  @include container;
-}
-
-.container {
+.profile {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.userStatsContainer {
-  display: flex;
+  flex: 1;
   gap: 20px;
 }
 
-.userStatsItem {
-  flex: 1;
-  width: 100%;
+.container {
+  max-width: 30%;
+  @include container;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.userTextData {
+.userData {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
 .avatarSection {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.editButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.history {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.statsBlock {
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
