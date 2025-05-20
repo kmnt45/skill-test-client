@@ -1,0 +1,36 @@
+@use '../../../shared/styles/mixins' as *;
+
+.userDataContainer {
+  @include container;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.userStatsContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.userStatsItem {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.userTextData {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.avatarSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

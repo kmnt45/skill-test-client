@@ -1,0 +1,38 @@
+@use '../../../../shared/styles/mixins' as *;
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  @include container;
+}
+
+.answer {
+  text-align: left;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: 2px solid transparent;
+  font-weight: 500;
+
+  &.selected {
+    background-color: #e6f7ff;
+    border-color: #1890ff;
+  }
+
+  &.correct {
+    background-color: #dff0d8;
+    border-color: #3c763d;
+    color: #3c763d;
+    font-weight: 700;
+  }
+
+  &.wrong {
+    background-color: #f2dede;
+    border-color: #a94442;
+    color: #a94442;
+    font-weight: 700;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}

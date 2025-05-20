@@ -1,0 +1,28 @@
+.collapse {
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  border: none;
+  gap: 15px;
+}
+
+.question {
+  background-color: var(--card-bg);
+  border-radius: 20px !important;
+  border-bottom: none !important;
+}
+
+.questionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copyLinkButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0 4px;
+  user-select: none;
+}
