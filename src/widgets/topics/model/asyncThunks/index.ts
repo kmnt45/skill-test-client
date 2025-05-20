@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ErrorMessageType } from 'shared/models';
-import { configuredAxios } from 'shared/utils/axios.utils.ts';
-import { HandleError } from 'shared/utils/handleError.ts';
+import { configuredAxios } from 'shared/api/axios';
+import { handleError } from 'shared/lib/handleError';
+import { ErrorMessageType } from 'shared/model/types';
 
 export interface Topic {
   title: string;
@@ -17,6 +17,6 @@ export const getTopics = createAsyncThunk<
     const { data } = await configuredAxios.get(`/${categoryId}/${basePath}`);
     return data;
   } catch (error) {
-    return rejectWithValue(HandleError(error));
+    return rejectWithValue(handleError(error));
   }
 });

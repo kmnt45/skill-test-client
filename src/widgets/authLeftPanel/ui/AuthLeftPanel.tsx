@@ -2,11 +2,11 @@ import { FC, useCallback } from 'react';
 
 import { MoonOutlined, SunOutlined } from '@ant-design/icons';
 import { Button, Typography } from 'antd';
-import { setTheme } from 'app/store/themeSlice.ts';
+import { setTheme } from 'entities/theme/model/slice';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ROUTES } from 'shared/constants';
-import { useAppDispatch } from 'shared/hooks/useAppDispatch.ts';
-import { useAppSelector } from 'shared/hooks/useAppSelector.ts';
+import { ROUTES } from 'shared/constants/routes';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch';
+import { useAppSelector } from 'shared/hooks/useAppSelector';
 
 import styles from './AuthLeftPanel.module.scss';
 

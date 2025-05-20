@@ -2,9 +2,10 @@ import { FC, useEffect, useMemo } from 'react';
 
 import { Spin } from 'antd';
 import { useLocation, useParams } from 'react-router-dom';
-import { CATEGORY_LABELS, LOADING_STAGE } from 'shared/constants';
-import { useAppDispatch } from 'shared/hooks/useAppDispatch.ts';
-import { useAppSelector } from 'shared/hooks/useAppSelector.ts';
+import { CATEGORY_LABELS } from 'shared/constants/categoryLabels';
+import { LOADING_STAGE } from 'shared/constants/loadingStage';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch';
+import { useAppSelector } from 'shared/hooks/useAppSelector';
 import { Header, TopicsCards } from 'shared/ui';
 import { getTopics } from 'widgets/topics/model/asyncThunks';
 

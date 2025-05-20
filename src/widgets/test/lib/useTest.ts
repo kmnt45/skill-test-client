@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 
 import { useParams } from 'react-router-dom';
-import { LOADING_STAGE } from 'shared/constants';
-import { useAppDispatch } from 'shared/hooks/useAppDispatch.ts';
-import { useAppSelector } from 'shared/hooks/useAppSelector.ts';
+import { LOADING_STAGE } from 'shared/constants/loadingStage';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch';
+import { useAppSelector } from 'shared/hooks/useAppSelector';
 
 import { getTestQuestion, checkTestAnswer, submitTest } from '../model/asyncThunks';
 import { resetCheckResult } from '../model/slice';

@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { Button, Form } from 'antd';
 import { NavLink } from 'react-router-dom';
-import { ROUTES } from 'shared/constants';
+import { ROUTES } from 'shared/constants/routes';
 import { InputWithLabel } from 'shared/ui';
 
 import styles from './Auth.module.scss';

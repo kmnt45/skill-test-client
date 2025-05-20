@@ -3,9 +3,9 @@ import { FC } from 'react';
 import { Typography, Spin, Button, Alert, Progress } from 'antd';
 
 import styles from './Test.module.scss';
-import { useTest } from '../../lib/useTest.ts';
-import { AnswerList } from '../AnswerList/AnswerList.tsx';
-import { Question } from '../Question/Question.tsx';
+import { useTest } from '../../lib/useTest';
+import { AnswerList } from '../AnswerList/AnswerList';
+import { Question } from '../Question/Question';
 
 export const Test: FC = () => {
   const {

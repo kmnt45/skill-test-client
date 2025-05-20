@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { Typography } from 'antd';
 import { NavLink } from 'react-router-dom';
-import { CATEGORY_LABELS } from 'shared/constants';
+import { CATEGORY_LABELS } from 'shared/constants/categoryLabels';
 
 import styles from './CategoriesCards.module.scss';
 

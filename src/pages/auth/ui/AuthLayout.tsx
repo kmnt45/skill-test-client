@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { Outlet, useLocation } from 'react-router-dom';
-import { ROUTES } from 'shared/constants';
+import { ROUTES } from 'shared/constants/routes';
 import { AuthLeftPanel } from 'widgets/authLeftPanel';
 
 import styles from './Auth.module.scss';

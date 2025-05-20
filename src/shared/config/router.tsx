@@ -1,15 +1,16 @@
-import { AppRouter } from 'app/AppRouter.tsx';
+import { AppRouter } from 'app/providers/appRouter/AppRouter';
 import { Login, Register, Restore, AuthLayout } from 'pages/auth';
 import { Categories } from 'pages/categories';
 import { Home } from 'pages/home';
 import { Profile } from 'pages/profile';
 import { Rating } from 'pages/rating';
 import { createBrowserRouter } from 'react-router-dom';
-import { ROUTES } from 'shared/constants';
 import { Questions } from 'widgets/questions';
 import { Task } from 'widgets/task';
 import { Test } from 'widgets/test';
 import { Topics } from 'widgets/topics';
+
+import { ROUTES } from '../constants/routes';
 
 export const router = createBrowserRouter([
   {

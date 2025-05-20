@@ -5,9 +5,9 @@ import { Typography, Avatar, Modal, Input, Upload, Button, message, Spin } from 
 import { RcFile, UploadChangeParam, UploadFile } from 'antd/lib/upload/interface';
 import { getUser, updateUserProfile, updateUserAvatar } from 'pages/profile/model/asyncThunks';
 import { useParams } from 'react-router-dom';
-import { LOADING_STAGE } from 'shared/constants';
-import { useAppDispatch } from 'shared/hooks/useAppDispatch.ts';
-import { useAppSelector } from 'shared/hooks/useAppSelector.ts';
+import { LOADING_STAGE } from 'shared/constants/loadingStage';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch';
+import { useAppSelector } from 'shared/hooks/useAppSelector';
 
 import styles from './Profile.module.scss';
 
@@ -147,7 +147,7 @@ export const Profile: FC = () => {
         onOk={handleSave}
         okText="Сохранить"
         cancelText="Отмена"
-        confirmLoading={updateProfileStatus === 'loading' || updateAvatarStatus === 'loading'}
+        confirmLoading={updateProfileStatus === LOADING_STAGE.LOADING || updateAvatarStatus === LOADING_STAGE.LOADING}
         destroyOnClose
       >
         <Input

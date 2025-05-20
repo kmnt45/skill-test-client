@@ -4,9 +4,9 @@ import { FC, useEffect, useMemo } from 'react';
 import { Spin } from 'antd';
 import { getCategories } from 'pages/categories/model/asyncThunks';
 import { useLocation } from 'react-router-dom';
-import { LOADING_STAGE } from 'shared/constants';
-import { useAppDispatch } from 'shared/hooks/useAppDispatch.ts';
-import { useAppSelector } from 'shared/hooks/useAppSelector.ts';
+import { LOADING_STAGE } from 'shared/constants/loadingStage';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch';
+import { useAppSelector } from 'shared/hooks/useAppSelector';
 import { CategoriesCards, Header, EmptyPlaceholder } from 'shared/ui';
 
 export const Categories: FC = () => {

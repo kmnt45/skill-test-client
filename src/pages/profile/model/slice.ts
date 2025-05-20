@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getUser, updateUserAvatar, updateUserProfile } from 'pages/profile/model/asyncThunks';
-import { LOADING_STAGE } from 'shared/constants';
-import { ApiStatusState, User } from 'shared/models';
+import { LOADING_STAGE } from 'shared/constants/loadingStage';
+import { LoadingStage } from 'shared/model/loadingStage';
+import { ApiStatusState, User } from 'shared/model/types';
 
 interface UserState {
   user: ApiStatusState<User | null>;
-  updateProfileStatus: LOADING_STAGE;
-  updateAvatarStatus: LOADING_STAGE;
+  updateProfileStatus: LoadingStage;
+  updateAvatarStatus: LoadingStage;
   updateProfileError: string | null;
   updateAvatarError: string | null;
 }
@@ -80,7 +81,7 @@ const userSlice = createSlice({
       })
       .addCase(updateUserAvatar.rejected, (state, { payload }) => {
         state.updateAvatarStatus = LOADING_STAGE.LOAD;
-        state.updateAvatarError = payload || 'Ошибка обновления аватара';
+        state.updateAvatarError = payload || null;
       });
   },
 });

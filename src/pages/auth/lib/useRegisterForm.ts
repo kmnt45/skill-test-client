@@ -1,12 +1,11 @@
+import { useGlobalNotification } from 'app/providers/notification/NotificationProvider';
 import { useFormik } from 'formik';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
-
-import { useGlobalNotification } from 'app/NotificationProvider.tsx';
-import { ROUTES } from 'shared/constants';
-import { useAppDispatch } from 'shared/hooks/useAppDispatch.ts';
-import { registrationInitialValues, validationRegistrationSchema } from 'pages/auth/lib/utils.ts';
+import { registrationInitialValues, validationRegistrationSchema } from 'pages/auth/lib/utils';
 import { registerUser } from 'pages/auth/model/asyncThunks';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from 'shared/constants/routes';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch';
 
 export const useRegisterForm = () => {
   const dispatch = useAppDispatch();

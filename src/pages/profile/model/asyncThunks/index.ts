@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ErrorMessageType } from 'shared/models';
-import { User } from 'shared/models';
-import { configuredAxios } from 'shared/utils/axios.utils.ts';
-import { HandleError } from 'shared/utils/handleError.ts';
+import { configuredAxios } from 'shared/api/axios';
+import { handleError } from 'shared/lib/handleError';
+import { ErrorMessageType } from 'shared/model/types';
+import { User } from 'shared/model/types';
 
 export const getUser = createAsyncThunk<
   User,
@@ -13,7 +13,7 @@ export const getUser = createAsyncThunk<
     const { data } = await configuredAxios.get(`/users/${id}`);
     return data;
   } catch (error) {
-    return rejectWithValue(HandleError(error));
+    return rejectWithValue(handleError(error));
   }
 });
 
@@ -28,7 +28,7 @@ export const updateUserProfile = createAsyncThunk<
       const { data: response } = await configuredAxios.patch(`/users/me`, data);
       return response;
     } catch (error) {
-      return rejectWithValue(HandleError(error));
+      return rejectWithValue(handleError(error));
     }
   },
 );
@@ -50,7 +50,7 @@ export const updateUserAvatar = createAsyncThunk<
       });
       return response;
     } catch (error) {
-      return rejectWithValue(HandleError(error));
+      return rejectWithValue(handleError(error));
     }
   },
 );

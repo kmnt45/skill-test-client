@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginUser, registerUser } from 'pages/auth/model/asyncThunks';
-import { AuthResponse } from 'pages/auth/model/types.ts';
-import { LOADING_STAGE } from 'shared/constants';
-import { ApiStatusState } from 'shared/models';
+import { AuthResponse } from 'pages/auth/model/types';
+import { LOADING_STAGE } from 'shared/constants/loadingStage';
+import { ApiStatusState } from 'shared/model/types';
 
 interface AuthState {
   auth: ApiStatusState<AuthResponse>;

@@ -3,10 +3,10 @@ import { FC, useEffect, useState } from 'react';
 import { Collapse } from 'antd';
 import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
-import { CATEGORY_LABELS } from 'shared/constants';
-import { useAppDispatch } from 'shared/hooks/useAppDispatch.ts';
-import { useAppSelector } from 'shared/hooks/useAppSelector.ts';
-import { Header } from 'shared/ui/Header/Header.tsx';
+import { CATEGORY_LABELS } from 'shared/constants/categoryLabels';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch';
+import { useAppSelector } from 'shared/hooks/useAppSelector';
+import { Header } from 'shared/ui/Header/Header';
 
 import styles from './Questions.module.scss';
 import { getQuestionsList, getQuestionContent } from '../model/asyncThunks';

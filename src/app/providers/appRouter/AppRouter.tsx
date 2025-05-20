@@ -1,11 +1,11 @@
 import { type FC, useEffect } from 'react';
 
-import { Layout } from 'app/Layout';
 import Cookies from 'js-cookie';
 import { getUser } from 'pages/profile/model/asyncThunks';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { PUBLIC_ROUTES, ROUTES } from 'shared/constants';
+import { PUBLIC_ROUTES, ROUTES } from 'shared/constants/routes';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch';
+import { Layout } from 'widgets/layout/ui/Layout';
 
 export const AppRouter: FC = () => {
   const dispatch = useAppDispatch();

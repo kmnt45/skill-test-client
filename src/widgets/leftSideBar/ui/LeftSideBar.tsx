@@ -6,12 +6,12 @@ import {
   StockOutlined,
 } from '@ant-design/icons';
 import { Avatar, Dropdown, MenuProps, Tooltip, Typography } from 'antd';
-import { setTheme } from 'app/store/themeSlice.ts';
-import { logout } from 'pages/profile/model/slice.ts';
+import { setTheme } from 'entities/theme/model/slice';
+import { logout } from 'pages/profile/model/slice';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { ROUTES } from 'shared/constants';
-import { useAppDispatch } from 'shared/hooks/useAppDispatch.ts';
-import { useAppSelector } from 'shared/hooks/useAppSelector.ts';
+import { ROUTES } from 'shared/constants/routes';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch';
+import { useAppSelector } from 'shared/hooks/useAppSelector';
 
 import styles from './LeftSideBar.module.scss';
 

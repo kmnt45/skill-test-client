@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ErrorMessageType } from 'shared/models';
-import { configuredAxios } from 'shared/utils/axios.utils.ts';
-import { HandleError } from 'shared/utils/handleError.ts';
+import { configuredAxios } from 'shared/api/axios';
+import { handleError } from 'shared/lib/handleError';
+import { ErrorMessageType } from 'shared/model/types';
 
 export interface Question {
   question: string;
@@ -31,7 +31,7 @@ export const getTestQuestion = createAsyncThunk<
     console.log(params.categoryId, params.testId, params.index)
     return data;
   } catch (error) {
-    return rejectWithValue(HandleError(error));
+    return rejectWithValue(handleError(error));
   }
 });
 
@@ -47,7 +47,7 @@ export const checkTestAnswer = createAsyncThunk<
     );
     return data;
   } catch (error) {
-    return rejectWithValue(HandleError(error));
+    return rejectWithValue(handleError(error));
   }
 });
 
@@ -65,7 +65,7 @@ export const submitTest = createAsyncThunk<
       );
       return data;
     } catch (error) {
-      return rejectWithValue(HandleError(error));
+      return rejectWithValue(handleError(error));
     }
   }
 );

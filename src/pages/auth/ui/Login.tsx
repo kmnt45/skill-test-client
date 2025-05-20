@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import { useLoginForm } from 'pages/auth/lib/useLoginForm.ts';
+import { useLoginForm } from 'pages/auth/lib/useLoginForm';
 
-import { AuthForm } from './AuthForm.tsx';
+import { AuthForm } from './AuthForm';
 
 export const Login: FC = () => {
   const formik = useLoginForm();

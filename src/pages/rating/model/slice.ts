@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { LOADING_STAGE } from 'shared/constants';
-import { ApiStatusState, User } from 'shared/models';
+import { LOADING_STAGE } from 'shared/constants/loadingStage';
+import { ApiStatusState, User } from 'shared/model/types';
 
 import { getUsers } from './asyncThunks';
 

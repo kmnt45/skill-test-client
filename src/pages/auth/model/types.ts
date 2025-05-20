@@ -1,4 +1,4 @@
-import { User } from 'shared/models';
+import { User } from 'shared/model/types';
 
 export type AuthResponse = {
   token: string;

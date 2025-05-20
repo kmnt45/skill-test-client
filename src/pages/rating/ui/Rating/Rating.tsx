@@ -1,9 +1,9 @@
 import { FC, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
-import { LOADING_STAGE } from 'shared/constants';
-import { useAppDispatch } from 'shared/hooks/useAppDispatch.ts';
-import { useAppSelector } from 'shared/hooks/useAppSelector.ts';
+import { LOADING_STAGE } from 'shared/constants/loadingStage';
+import { useAppDispatch } from 'shared/hooks/useAppDispatch';
+import { useAppSelector } from 'shared/hooks/useAppSelector';
 import { Header } from 'shared/ui';
 
 import styles from './Rating.module.scss';

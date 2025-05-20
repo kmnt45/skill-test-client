@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { LOADING_STAGE } from 'shared/constants';
-import { ApiStatusState } from 'shared/models';
+import { LOADING_STAGE } from 'shared/constants/loadingStage';
+import { ApiStatusState } from 'shared/model/types';
 
 import { getQuestionsList, getQuestionContent, Question } from './asyncThunks';
 

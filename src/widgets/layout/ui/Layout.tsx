@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 
 import { useLocation } from 'react-router-dom';
-import { ROUTES } from 'shared/constants';
+import { ROUTES } from 'shared/constants/routes';
 import {LeftSideBar} from "widgets/leftSideBar";
 
 import styles from './Layout.module.scss';
