@@ -1,1 +1,0 @@
-export const selectUsers = (state: any) => state.rating.users;

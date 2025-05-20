@@ -3,8 +3,6 @@ import { FC } from 'react';
 import { Form, Input } from 'antd';
 import { FieldInputProps } from 'formik';
 
-import styles from './InputWithLabel.module.scss'
-
 type InputWithLabelProps = {
   type?: 'text' | 'email' | 'password';
   placeholder: string;
@@ -27,12 +25,10 @@ export const InputWithLabel: FC<InputWithLabelProps> = ({
       name={fieldProps.name}
       validateStatus={hasError ? 'error' : ''}
       help={hasError ? error : ''}
-      className={styles.formItem}
     >
       {type === 'password' ? (
         <Input.Password
           type={type}
-          className={styles.input}
           placeholder={placeholder}
           autoComplete="current-password"
           {...fieldProps}
@@ -40,7 +36,6 @@ export const InputWithLabel: FC<InputWithLabelProps> = ({
       ) : (
         <Input
           type={type}
-          className={styles.input}
           placeholder={placeholder}
           autoComplete={
             type === 'email'

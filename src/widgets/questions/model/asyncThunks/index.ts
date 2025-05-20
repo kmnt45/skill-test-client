@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { configuredAxios } from 'shared/api/axios';
+import { appAxios } from 'shared/api/appAxios';
 import { handleError } from 'shared/lib/handleError';
 import { ErrorMessageType } from 'shared/model/types';
 
@@ -16,7 +16,7 @@ export const getQuestionsList = createAsyncThunk<
   'categories/getQuestionsList',
   async (categoryId, { rejectWithValue }) => {
     try {
-      const { data } = await configuredAxios.get(`${categoryId}/questions`);
+      const { data } = await appAxios.get(`${categoryId}/questions`);
       return data;
     } catch (error) {
       return rejectWithValue(handleError(error));
@@ -32,7 +32,7 @@ export const getQuestionContent = createAsyncThunk<
   'categories/getQuestionContent',
   async ({ categoryId, questionSlug }, { rejectWithValue }) => {
     try {
-      const { data } = await configuredAxios.get(`${categoryId}/questions/${questionSlug}`);
+      const { data } = await appAxios.get(`${categoryId}/questions/${questionSlug}`);
       return { question: questionSlug, answer: data.content };
     } catch (error) {
       return rejectWithValue(handleError(error));

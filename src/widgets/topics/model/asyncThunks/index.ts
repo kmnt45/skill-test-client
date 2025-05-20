@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { configuredAxios } from 'shared/api/axios';
+import { appAxios } from 'shared/api/appAxios';
 import { handleError } from 'shared/lib/handleError';
 import { ErrorMessageType } from 'shared/model/types';
 
@@ -14,7 +14,7 @@ export const getTopics = createAsyncThunk<
   { rejectValue: ErrorMessageType }
 >('topics/getTests', async ({ categoryId, basePath }, { rejectWithValue }) => {
   try {
-    const { data } = await configuredAxios.get(`/${categoryId}/${basePath}`);
+    const { data } = await appAxios.get(`/${categoryId}/${basePath}`);
     return data;
   } catch (error) {
     return rejectWithValue(handleError(error));

@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginUser, registerUser } from 'pages/auth/model/asyncThunks';
-import { AuthResponse } from 'pages/auth/model/types';
 import { LOADING_STAGE } from 'shared/constants/loadingStage';
 import { ApiStatusState } from 'shared/model/types';
+
+import { AuthResponse } from './types';
 
 interface AuthState {
   auth: ApiStatusState<AuthResponse>;
@@ -17,13 +18,14 @@ const initialState: AuthState = {
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: 'authUser',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
         state.auth.apiStatus = LOADING_STAGE.LOADING;
+        state.auth.apiError = null;
       })
       .addCase(registerUser.fulfilled, (state, { payload }) => {
         state.auth.apiData = payload;
@@ -35,6 +37,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.pending, (state) => {
         state.auth.apiStatus = LOADING_STAGE.LOADING;
+        state.auth.apiError = null;
       })
       .addCase(loginUser.fulfilled, (state, { payload }) => {
         state.auth.apiData = payload;

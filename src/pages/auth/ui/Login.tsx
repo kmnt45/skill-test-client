@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import { useLoginForm } from 'pages/auth/lib/useLoginForm';
-
 import { AuthForm } from './AuthForm';
+import { useLoginForm } from '../lib/useLoginForm';
+
 
 export const Login: FC = () => {
   const formik = useLoginForm();

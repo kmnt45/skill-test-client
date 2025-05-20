@@ -1,23 +1,24 @@
-import { FC } from 'react';
-
 import { Button, Form } from 'antd';
+import { FormikValues, FormikProps } from 'formik';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from 'shared/constants/routes';
 import { InputWithLabel } from 'shared/ui';
 
 import styles from './Auth.module.scss';
 
-type AuthFormProps = {
-  fields: {
-    name: string;
-    type: 'text' | 'email' | 'password';
-    placeholder: string;
-  }[];
-  formik: ReturnType<typeof import('formik').useFormik<any>>;
+type Field = {
+  name: string;
+  type: 'text' | 'email' | 'password';
+  placeholder: string;
+};
+
+type AuthFormProps<T extends FormikValues> = {
+  fields: Field[];
+  formik: FormikProps<T>;
   submitLabel: string;
 };
 
-export const AuthForm: FC<AuthFormProps> = ({ fields, formik, submitLabel }) => {
+export const AuthForm = <T extends FormikValues>({ fields, formik, submitLabel }: AuthFormProps<T>) => {
   const { errors, touched, getFieldProps, isValid, dirty, handleSubmit } = formik;
 
   return (
@@ -28,21 +29,14 @@ export const AuthForm: FC<AuthFormProps> = ({ fields, formik, submitLabel }) => 
           type={type}
           placeholder={placeholder}
           fieldProps={getFieldProps(name)}
-          error={errors[name]}
-          touched={touched[name]}
+          error={errors[name as keyof T] as string}
+          touched={touched[name as keyof T] as boolean}
         />
       ))}
-      <Button
-        type="primary"
-        className={styles.submitButton}
-        disabled={!isValid || !dirty}
-        htmlType="submit"
-      >
+      <Button type="primary" disabled={!isValid || !dirty} htmlType="submit">
         {submitLabel}
       </Button>
-      <NavLink to={ROUTES.RESTORE} className={styles.restoreButton}>
-        Забыл пароль?
-      </NavLink>
+      <NavLink className={styles.restoreButton} to={ROUTES.RESTORE}>Забыл пароль?</NavLink>
     </Form>
   );
 };

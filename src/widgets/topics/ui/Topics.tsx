@@ -45,7 +45,7 @@ export const Topics: FC = () => {
     <>
       <Header>{pageTitle}</Header>
       <Spin spinning={isLoading}>
-        {!isLoading && topics?.length > 0 && (
+        {!isLoading && topics && topics.length > 0 && (
           <TopicsCards data={topicsData} />
         )}
       </Spin>

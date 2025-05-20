@@ -1,13 +1,15 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 
 import {
   HomeOutlined,
   FileTextOutlined,
   StockOutlined,
+  MenuOutlined,
+  CloseOutlined,
 } from '@ant-design/icons';
 import { Avatar, Dropdown, MenuProps, Tooltip, Typography } from 'antd';
 import { setTheme } from 'entities/theme/model/slice';
-import { logout } from 'pages/profile/model/slice';
+import { logout } from 'entities/user/model/slice';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { ROUTES } from 'shared/constants/routes';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch';
@@ -45,8 +47,24 @@ export const LeftSideBar: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const apiData = useAppSelector((state) => state.user.user.apiData);
+  const apiData = useAppSelector((state) => state.user.me.apiData);
   const theme = useAppSelector((state) => state.theme.theme);
+
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onResize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width < 768);
+      setIsCollapsed(width >= 768 && width < 1024);
+      if (width >= 768) setMobileMenuOpen(false);
+    };
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   const toggleTheme = useCallback(() => {
     dispatch(setTheme(theme === 'light' ? 'dark' : 'light'));
@@ -69,7 +87,13 @@ export const LeftSideBar: FC = () => {
     {
       key: 'profile',
       label: (
-        <div onClick={() => navigate(`/profile/${apiData?.id}`)} className={styles.dropdownItem}>
+        <div
+          onClick={() => {
+            navigate(`/profile/${apiData?.id}`);
+            setMobileMenuOpen(false);
+          }}
+          className={styles.dropdownItem}
+        >
           Профиль
         </div>
       ),
@@ -77,7 +101,13 @@ export const LeftSideBar: FC = () => {
     {
       key: 'theme',
       label: (
-        <div onClick={toggleTheme} className={styles.dropdownItem}>
+        <div
+          onClick={() => {
+            toggleTheme();
+            setMobileMenuOpen(false);
+          }}
+          className={styles.dropdownItem}
+        >
           Сменить тему
         </div>
       ),
@@ -85,7 +115,13 @@ export const LeftSideBar: FC = () => {
     {
       key: 'logout',
       label: (
-        <div onClick={handleLogout} className={`${styles.dropdownItem} ${styles.logout}`}>
+        <div
+          onClick={() => {
+            handleLogout();
+            setMobileMenuOpen(false);
+          }}
+          className={`${styles.dropdownItem} ${styles.logout}`}
+        >
           Выйти
         </div>
       ),
@@ -93,54 +129,79 @@ export const LeftSideBar: FC = () => {
   ];
 
   return (
-    <aside className={styles.sidebar}>
-      <div className={styles.topSection}>
-        <NavLink to={ROUTES.HOME} className={styles.logo}>
-          <HomeOutlined className={styles.logoIcon} />
-          <Text className={styles.logoText}>СкиллТест</Text>
-        </NavLink>
-
-        <nav className={styles.nav}>
-          {NAV_ITEMS.map(({ title, icon, path, disable }) => (
-            <div className={styles.navLink} key={title}>
-              <NavLink
-                to={disable ? '#' : path}
-                className={({ isActive }) =>
-                  `${styles.navLinkInner} ${disable ? styles.disabledNavLink : ''} ${isActive && !disable ? styles.activeNavLink : ''}`
-                }
-              >
-                <Tooltip title={title} placement="right" className={styles.tooltip}>
-                  {icon}
-                </Tooltip>
-                <span className={styles.linkTextWrapper}>
-                  <Text className={styles.linkText}>{title}</Text>
-                </span>
-              </NavLink>
-            </div>
-          ))}
-        </nav>
-
-      </div>
-
-      {apiData?.nickName && (
-        <Dropdown menu={{ items: dropdownItems }} trigger={['click']}>
-          <div className={styles.profile}>
-            <Avatar
-              size="small"
-              src={`http://localhost:5000${apiData.avatarUrl}`}
-              alt={apiData.nickName}
-            >
-              {apiData.nickName[0]}
-            </Avatar>
-            <Text
-              className={styles.profileName}
-              title={apiData.nickName}
-            >
-              {apiData.nickName}
-            </Text>
-          </div>
-        </Dropdown>
+    <>
+      {isMobile && (
+        <button
+          className={styles.mobileBurger}
+          onClick={() => setMobileMenuOpen((open) => !open)}
+          aria-label="Меню"
+          type="button"
+        >
+          {mobileMenuOpen ? <CloseOutlined /> : <MenuOutlined />}
+        </button>
       )}
-    </aside>
+
+      <aside
+        className={`${styles.sidebar} ${
+          isCollapsed ? styles.collapsed : ''
+        } ${mobileMenuOpen ? styles.mobileOpen : ''}`}
+        onClick={() => isMobile && setMobileMenuOpen(false)}
+      >
+        <div className={styles.topSection}>
+          <NavLink
+            to={ROUTES.HOME}
+            className={`${styles.logo} ${isCollapsed ? styles.logoCollapsed : ''}`}
+            onClick={() => isMobile && setMobileMenuOpen(false)}
+          >
+            <HomeOutlined className={styles.logoIcon} />
+            {!isCollapsed && <Text className={styles.logoText}>СкиллТест</Text>}
+          </NavLink>
+
+          <nav className={styles.nav}>
+            {NAV_ITEMS.map(({ title, icon, path, disable }) => (
+              <div className={styles.navLink} key={title}>
+                <NavLink
+                  to={disable ? '#' : path}
+                  className={({ isActive }) =>
+                    `${styles.navLinkInner} ${
+                      disable ? styles.disabledNavLink : ''
+                    } ${isActive && !disable ? styles.activeNavLink : ''}`
+                  }
+                  onClick={() => isMobile && setMobileMenuOpen(false)}
+                >
+                  <Tooltip title={isCollapsed ? title : ''} placement="right" className={styles.tooltip}>
+                    {icon}
+                  </Tooltip>
+                  {!isCollapsed && (
+                    <span className={styles.linkTextWrapper}>
+                      <Text className={styles.linkText}>{title}</Text>
+                    </span>
+                  )}
+                </NavLink>
+              </div>
+            ))}
+          </nav>
+        </div>
+
+        {apiData?.nickName && (
+          <Dropdown menu={{ items: dropdownItems }} trigger={['click']}>
+            <div className={styles.profile}>
+              <Avatar
+                size="small"
+                src={`http://localhost:5000${apiData.avatarUrl}`}
+                alt={apiData.nickName}
+              >
+                {apiData.nickName[0]}
+              </Avatar>
+              {!isCollapsed && (
+                <Text className={styles.profileName} title={apiData.nickName}>
+                  {apiData.nickName}
+                </Text>
+              )}
+            </div>
+          </Dropdown>
+        )}
+      </aside>
+    </>
   );
 };

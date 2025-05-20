@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { configuredAxios } from 'shared/api/axios';
+import { appAxios } from 'shared/api/appAxios';
 import { handleError } from 'shared/lib/handleError';
 import { ErrorMessageType } from 'shared/model/types';
 
@@ -9,7 +9,7 @@ export const getCategories = createAsyncThunk<
   { rejectValue: ErrorMessageType }
 >('categories/getCategories', async (_, { rejectWithValue }) => {
   try {
-    const { data } = await configuredAxios.get('/categories');
+    const { data } = await appAxios.get('/categories');
     return data;
   } catch (error) {
     return rejectWithValue(handleError(error));

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthResponse, CreateUser } from 'pages/auth/model/types';
-import { configuredAxios } from 'shared/api/axios';
+import { appAxios } from 'shared/api/appAxios';
 import { handleError } from 'shared/lib/handleError';
 import { ErrorMessageType } from 'shared/model/types';
 
@@ -10,7 +10,7 @@ export const registerUser = createAsyncThunk<
   { rejectValue: ErrorMessageType }
 >('auth/registerUser', async (userData, { rejectWithValue }) => {
   try {
-    const { data } = await configuredAxios.post('/auth/register', userData);
+    const { data } = await appAxios.post('/auth/register', userData);
     return data;
   } catch (error) {
     return rejectWithValue(handleError(error));
@@ -23,10 +23,9 @@ export const loginUser = createAsyncThunk<
   { rejectValue: ErrorMessageType }
 >('auth/loginUser', async (credentials, { rejectWithValue }) => {
   try {
-    const { data } = await configuredAxios.post('/auth/login', credentials);
+    const { data } = await appAxios.post('/auth/login', credentials);
     return data;
   } catch (error) {
     return rejectWithValue(handleError(error));
   }
 });
-

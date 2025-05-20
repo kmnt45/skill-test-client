@@ -1,7 +1,7 @@
 import { type FC, useEffect } from 'react';
 
+import { getMe } from 'entities/user/model/asyncThunks';
 import Cookies from 'js-cookie';
-import { getUser } from 'pages/profile/model/asyncThunks';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { PUBLIC_ROUTES, ROUTES } from 'shared/constants/routes';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch';
@@ -23,7 +23,7 @@ export const AppRouter: FC = () => {
   useEffect(() => {
     if (!userId) return;
 
-    dispatch(getUser({ id: userId }));
+    dispatch(getMe({ id: userId }));
   }, [userId, dispatch]);
 
   useEffect(() => {

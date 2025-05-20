@@ -6,9 +6,9 @@ import { AuthLeftPanel } from 'widgets/authLeftPanel';
 
 import styles from './Auth.module.scss';
 
-
 export const AuthLayout: FC = () => {
   const { pathname } = useLocation();
+
   const isRestorePage = pathname === ROUTES.RESTORE;
 
   return (

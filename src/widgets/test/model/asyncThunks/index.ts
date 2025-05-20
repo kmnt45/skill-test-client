@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { configuredAxios } from 'shared/api/axios';
+import { appAxios } from 'shared/api/appAxios';
 import { handleError } from 'shared/lib/handleError';
 import { ErrorMessageType } from 'shared/model/types';
 
@@ -25,7 +25,7 @@ export const getTestQuestion = createAsyncThunk<
   { rejectValue: ErrorMessageType }
 >('test/getTestQuestion', async (params, { rejectWithValue }) => {
   try {
-    const { data } = await configuredAxios.get(
+    const { data } = await appAxios.get(
       `/${params.categoryId}/tests/${params.testId}/${params.index}`,
     );
     console.log(params.categoryId, params.testId, params.index)
@@ -41,7 +41,7 @@ export const checkTestAnswer = createAsyncThunk<
   { rejectValue: ErrorMessageType }
 >('test/checkAnswer', async (params, { rejectWithValue }) => {
   try {
-    const { data } = await configuredAxios.post(
+    const { data } = await appAxios.post(
       `/${params.categoryId}/tests/${params.testId}/${params.index}/check`,
       { answerIndex: params.answerIndex },
     );
@@ -59,7 +59,7 @@ export const submitTest = createAsyncThunk<
   'test/submitTest',
   async (params, { rejectWithValue }) => {
     try {
-      const { data } = await configuredAxios.post(
+      const { data } = await appAxios.post(
         `/${params.categoryId}/tests/${params.testId}/complete`,
         { answers: params.answers }
       );

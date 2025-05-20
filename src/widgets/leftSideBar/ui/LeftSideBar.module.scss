@@ -129,3 +129,46 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  .collapsed {
+    width: 64px !important; // или текущий размер иконок
+  }
+
+  .logoText,
+  .linkTextWrapper,
+  .profileName {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background: #fff; // твой фон
+    width: 240px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+  }
+
+  .mobileOpen {
+    transform: translateX(0);
+  }
+
+  .mobileBurger {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: inherit;
+  }
+}
+

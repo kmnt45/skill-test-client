@@ -1,8 +1,7 @@
 import { FC } from 'react';
 
-import { useRegisterForm } from 'pages/auth/lib/useRegisterForm';
-
 import { AuthForm } from './AuthForm';
+import { useRegisterForm } from '../lib/useRegisterForm';
 
 export const Register: FC = () => {
   const formik = useRegisterForm();
