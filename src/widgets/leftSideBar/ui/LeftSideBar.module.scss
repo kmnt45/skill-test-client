@@ -1,0 +1,131 @@
+.sidebar {
+  position: sticky;
+  top: 20px;
+  height: calc(100vh - 40px);
+  padding: 20px;
+  border-radius: 20px;
+  background-color: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  align-items:  center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.topSection {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoIcon {
+  font-size: 20px;
+  color: var(--text-color);
+}
+
+.logoText {
+  font-weight: bold;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.navLink {
+  display: flex;
+  flex-direction: column;
+}
+
+.navLinkInner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: bold;
+  padding-bottom: 2px;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #ffffff;
+  }
+}
+
+.linkTextWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.activeNavLink .linkTextWrapper::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #09DEF6;
+}
+
+.disabledNavLink {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.linkText {
+  display: inline;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.profileName {
+  font-size: 14px;
+  max-width: 80px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.dropdownItem {
+  width: 100%;
+  cursor: pointer;
+}
+
+.logout {
+  color: red;
+}
+
+@media (max-width: 768px) {
+  .logoText,
+  .linkText,
+  .profileName {
+    display: none;
+  }
+
+  .sidebar {
+    align-items: center;
+    padding: 10px;
+  }
+
+  .nav {
+    gap: 16px;
+  }
+
+  .navLinkInner {
+    justify-content: center;
+  }
+}
