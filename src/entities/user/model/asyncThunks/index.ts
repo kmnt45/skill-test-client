@@ -1,19 +1,19 @@
-// entities/user/model/asyncThunks.ts
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import Cookies from 'js-cookie';
 import { appAxios } from 'shared/api/appAxios';
 import { handleError } from 'shared/lib/handleError';
 import { ErrorMessageType } from 'shared/model/types';
 
+import { AuthResponse, CreateUser, LoginUser, RegisterUser } from '../types';
 import { User } from '../types';
 
 export const getMe = createAsyncThunk<
   User,
-  { id?: string } | void,
+  void,
   { rejectValue: ErrorMessageType }
->('user/getMe', async ({ id } = {}, { rejectWithValue }) => {
+>('user/getMe', async (_, { rejectWithValue }) => {
   try {
-    const url = id ? `/users/${id}` : '/users/me';
-    const { data } = await appAxios.get(url);
+    const { data } = await appAxios.get('/users/me');
     return data;
   } catch (error) {
     return rejectWithValue(handleError(error));
@@ -76,3 +76,71 @@ export const updateUserAvatar = createAsyncThunk<
     return rejectWithValue(handleError(error));
   }
 });
+
+export const registerUser = createAsyncThunk<
+  AuthResponse,
+  RegisterUser,
+  { rejectValue: ErrorMessageType }
+>('auth/registerUser', async (userData, { rejectWithValue }) => {
+  try {
+    const { data } = await appAxios.post('/auth/register', userData);
+    return data;
+  } catch (error) {
+    return rejectWithValue(handleError(error));
+  }
+});
+
+export const loginUser = createAsyncThunk<
+  AuthResponse,
+  LoginUser,
+  { rejectValue: ErrorMessageType }
+>('auth/loginUser', async (credentials, { rejectWithValue }) => {
+  try {
+    const { data } = await appAxios.post('/auth/login', credentials);
+    return data;
+  } catch (error) {
+    return rejectWithValue(handleError(error));
+  }
+});
+
+export const initAuth = createAsyncThunk(
+  'user/initAuth',
+  async (_, { dispatch }) => {
+    const userId = Cookies.get('user_id');
+    if (!userId) return null;
+
+    const result = await dispatch(getMe());
+    if (getMe.fulfilled.match(result)) {
+      return result.payload;
+    }
+
+    return null;
+  }
+);
+
+export const restorePassword = createAsyncThunk<
+  { message: string },
+  { email: string },
+  { rejectValue: ErrorMessageType }
+>('auth/restorePassword', async (payload, { rejectWithValue }) => {
+  try {
+    const { data } = await appAxios.post('/auth/restore', payload);
+    return data;
+  } catch (error) {
+    return rejectWithValue(handleError(error));
+  }
+});
+
+export const resetPassword = createAsyncThunk<
+  { message: string },
+  { email: string; code: string; password: string },
+  { rejectValue: ErrorMessageType }
+>('auth/resetPassword', async (payload, { rejectWithValue }) => {
+  try {
+    const { data } = await appAxios.post('/auth/reset-password', payload);
+    return data;
+  } catch (error) {
+    return rejectWithValue(handleError(error));
+  }
+});
+

@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
+import styles from 'pages/auth/ui/Auth.module.scss';
 import { Outlet, useLocation } from 'react-router-dom';
 import { ROUTES } from 'shared/constants/routes';
 import { AuthLeftPanel } from 'widgets/authLeftPanel';
 
-import styles from './Auth.module.scss';
 
 export const AuthLayout: FC = () => {
   const { pathname } = useLocation();

@@ -3,6 +3,7 @@ import type { AsyncThunk } from '@reduxjs/toolkit';
 import { useGlobalMessage } from 'app/providers/message/MessageProvider';
 import { useFormik, FormikHelpers, FormikConfig } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from 'shared/constants/routes';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch';
 import { ObjectSchema } from 'yup';
 
@@ -42,8 +43,9 @@ export function useAuthForm<T extends Record<string, unknown>>({
         if (payload?.error) {
           message.error(payload.error);
         } else if (payload?.user?.id) {
+          console.log(payload?.user?.id)
           message.success(successMessage);
-          navigate('/');
+          navigate(ROUTES.HOME);
         } else {
           message.error(payload?.message || errorMessage);
         }

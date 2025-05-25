@@ -22,7 +22,7 @@ export const Banner: FC<BannerProps> = ({
   linkIcon,
 }) => {
   return (
-    <div className={styles.banner} role="banner" aria-label="Информационный баннер">
+    <div className={styles.banner} role="banner">
       <div className={styles.container}>
         <Title level={2} className={styles.title}>
           {title}

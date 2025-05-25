@@ -36,7 +36,7 @@ export const AuthForm = <T extends FormikValues>({ fields, formik, submitLabel }
       <Button type="primary" disabled={!isValid || !dirty} htmlType="submit">
         {submitLabel}
       </Button>
-      <NavLink className={styles.restoreButton} to={ROUTES.RESTORE}>Забыл пароль?</NavLink>
+      <NavLink className={styles.restoreButton} to={ROUTES.RESTORE}>Забыли пароль?</NavLink>
     </Form>
   );
 };

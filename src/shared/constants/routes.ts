@@ -1,8 +1,11 @@
+export type RoutePath = typeof ROUTES[keyof typeof ROUTES];
+
 export const ROUTES = {
   HOME: '/',
   LOGIN: '/auth/login',
   REGISTER: '/auth/register',
   RESTORE: '/auth/restore-password',
+  RESET_PASSWORD: '/auth/reset-password',
   PROFILE: '/profile/:profileId',
   QUESTIONS: '/questions',
   QUESTIONS_CONTENT: '/questions/:categoryId',
@@ -16,9 +19,8 @@ export const ROUTES = {
   RATING: '/rating',
 } as const;
 
-export const PUBLIC_ROUTES = [
-  '/',
+export const PUBLIC_ROUTES: RoutePath[] = [
   ROUTES.LOGIN,
   ROUTES.REGISTER,
   ROUTES.RESTORE,
-] as const
+];

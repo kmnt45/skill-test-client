@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Typography } from 'antd';
+import { Flex, Typography } from 'antd';
 import { NavLink } from 'react-router-dom';
 
 import styles from './TopicsCards.module.scss';
@@ -9,8 +9,8 @@ const { Title, Text } = Typography;
 
 export type TopicCard = {
   title?: string;
-  description?: string;
-  path?: string;
+  points?: number;
+  slug?: string;
 };
 
 type TopicsCardsParams = {
@@ -18,12 +18,15 @@ type TopicsCardsParams = {
 };
 
 export const TopicsCards: FC<TopicsCardsParams> = ({ data }) => {
+  console.log(data);
   return (
     <div className={styles.cards}>
-      {data.map(({ title, description, path }) => (
-        <NavLink to={path || '#'} key={title} className={styles.card}>
-          {title && <Title level={4} style={{ marginBottom: 0, marginTop: 0 }}>{title}</Title>}
-          {description && <Text>{description}</Text>}
+      {data.map(({ title, points, slug }) => (
+        <NavLink to={slug || '#'} key={title} className={styles.card}>
+          <Flex align={'center'} justify={'space-between'}>
+            {title && <Title level={4} style={{ margin: 0 }}>{title}</Title>}
+            {points && <Text strong>{points}🔥</Text>}
+          </Flex>
         </NavLink>
       ))}
     </div>

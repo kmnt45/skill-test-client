@@ -1,41 +1,38 @@
-import { useEffect } from 'react';
+import { ReactNode } from 'react';
 
 import { ConfigProvider, App, theme as antdTheme } from 'antd';
-import { useAppSelector } from 'shared/hooks/useAppSelector';
 
 const customThemeConfig = {
-  "token": {
-    "colorPrimary": "#09def6",
-    "colorInfo": "#09def6",
-    "fontSize": 16
+  'token': {
+    'colorPrimary': '#09def6',
+    'colorInfo': '#09def6',
+    'fontSize': 16,
   },
-  "components": {
-    "Input": {
-      "paddingBlock": 15,
-      "paddingInline": 15,
-      "borderRadius": 20
+  'components': {
+    'Input': {
+      'paddingBlock': 15,
+      'paddingInline': 15,
+      'borderRadius': 20,
     },
-    "Button": {
-      "controlHeight": 55,
-      "paddingInline": 15,
-      "borderRadius": 20,
+    'Button': {
+      'controlHeight': 55,
+      'paddingInline': 15,
+      'borderRadius': 20,
     },
-  }
-}
+    'List': {
+      'borderRadiusLG': 20,
+      'itemPadding': '20px',
+    },
+  },
+};
 
-export const AppThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const theme = useAppSelector((state) => state.theme.theme);
-
-  useEffect(() => {
-    document.body.classList.remove('light', 'dark');
-    document.body.classList.add(theme);
-  }, [theme]);
+export const AppThemeProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <ConfigProvider
       theme={{
         algorithm:
-          theme === 'dark' ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
+        antdTheme.darkAlgorithm,
         ...customThemeConfig,
       }}
     >

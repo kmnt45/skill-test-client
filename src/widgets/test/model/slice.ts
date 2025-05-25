@@ -70,4 +70,4 @@ export const testSlice = createSlice({
 });
 
 export const { resetCheckResult } = testSlice.actions;
-export default testSlice.reducer;
+export const testReducer = testSlice.reducer;

@@ -1,9 +1,9 @@
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useEffect } from 'react';
 
-
-import { Spin } from 'antd';
+import { Flex, Spin } from 'antd';
 import { getCategories } from 'pages/categories/model/asyncThunks';
 import { useLocation } from 'react-router-dom';
+import { ROUTES } from 'shared/constants';
 import { LOADING_STAGE } from 'shared/constants/loadingStage';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch';
 import { useAppSelector } from 'shared/hooks/useAppSelector';
@@ -16,27 +16,27 @@ export const Categories: FC = () => {
   const { apiData: categories, apiStatus } = useAppSelector(state => state.categories.categories);
   const isLoading = apiStatus === LOADING_STAGE.LOADING;
 
-  const pageTitle = useMemo(() => {
-    if (location.pathname.startsWith('/questions')) return 'Вопросы';
-    if (location.pathname.startsWith('/tests')) return 'Тесты';
-    if (location.pathname.startsWith('/tasks')) return 'Задачи';
-    return 'Категории';
-  }, [location.pathname]);
+  const pageTitle =
+    location.pathname.startsWith(ROUTES.QUESTIONS) ? 'Вопросы' :
+      location.pathname.startsWith(ROUTES.TESTS) ? 'Тесты' :
+        location.pathname.startsWith(ROUTES.TASKS) ? 'Задачи' :
+          'Категории';
 
   useEffect(() => {
     dispatch(getCategories());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
       <Header>{pageTitle}</Header>
-      <Spin spinning={isLoading}>
-        {categories && categories.length ? (
-          <CategoriesCards data={categories} />
-        ) : (
-          !isLoading && <EmptyPlaceholder />
-        )}
-      </Spin>
+      {isLoading ?
+        (<Flex align={'center'} justify={'center'} style={{ height: '100%' }}>
+          <Spin size="large" />
+        </Flex>) :
+        categories?.length ?
+          <CategoriesCards data={categories} /> :
+          <EmptyPlaceholder />
+      }
     </>
   );
 };

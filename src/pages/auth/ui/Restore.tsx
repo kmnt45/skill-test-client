@@ -1,13 +1,16 @@
 import { FC } from 'react';
 
-import { Input, Typography } from 'antd';
+import { AuthForm } from './AuthForm';
+import { useRestoreForm } from '../lib/useRestoreForm';
 
-import styles from './Auth.module.scss';
+export const Restore: FC = () => {
+  const formik = useRestoreForm();
 
-export const Restore: FC = () => (
-  <div className={styles.restore}>
-    <Typography.Title className={styles.title}>Восстановление пароля</Typography.Title>
-    <Input></Input>
-    <p>На указанную почту придёт код для восстановления доступа</p>
-  </div>
-);
+  return (
+    <AuthForm
+      submitLabel="Отправить код"
+      formik={formik}
+      fields={[{ name: 'email', type: 'email', placeholder: 'Введите почту' }]}
+    />
+  );
+};

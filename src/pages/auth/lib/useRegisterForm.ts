@@ -1,4 +1,4 @@
-import { registerUser } from 'pages/auth/model/asyncThunks';
+import { registerUser } from 'entities/user/model/asyncThunks';
 
 import { useAuthForm } from './useAuthForm';
 import { registrationInitialValues, validationRegistrationSchema } from './validation';

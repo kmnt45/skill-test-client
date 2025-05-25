@@ -5,3 +5,5 @@ export { EmptyPlaceholder } from './EmptyPlaceholder/EmptyPlaceholder';
 export { Header } from 'shared/ui/Header/Header';
 export { Banner } from './Banner/Banner';
 export { TopicsCards, type TopicCard } from './TopicsCards/TopicsCards';
+export { Markdown } from './Markdown/Markdown';
+export { CodeEditor } from './CodeEditor/CodeEditor';

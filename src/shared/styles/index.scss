@@ -1,16 +1,13 @@
-@import 'normalize.css';
-@import './variables';
-@import './mixins';
+@use 'normalize.css';
+@use './variables';
+@use './mixins';
 
 :root {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --card-bg: #ffffff;
-
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
   height: 100%;
+
+  --bg-color: #000000;
+  --text-color: #ffffff;
+  --card-bg: #1A1A1A;
 }
 
 body {
@@ -21,14 +18,7 @@ body {
   color: var(--text-color);
 }
 
-body.light {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --card-bg: #E1E1E1;
-}
-
-body.dark {
-  --bg-color: #000000;
-  --text-color: #ffffff;
-  --card-bg: #1A1A1A;
+::selection {
+  background-color: #09def6;
+  color: #fff;
 }

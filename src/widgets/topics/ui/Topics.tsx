@@ -1,12 +1,12 @@
 import { FC, useEffect, useMemo } from 'react';
 
-import { Spin } from 'antd';
+import { Flex, Spin } from 'antd';
 import { useLocation, useParams } from 'react-router-dom';
 import { CATEGORY_LABELS } from 'shared/constants/categoryLabels';
 import { LOADING_STAGE } from 'shared/constants/loadingStage';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch';
 import { useAppSelector } from 'shared/hooks/useAppSelector';
-import { Header, TopicsCards } from 'shared/ui';
+import { EmptyPlaceholder, Header, TopicsCards } from 'shared/ui';
 import { getTopics } from 'widgets/topics/model/asyncThunks';
 
 export const Topics: FC = () => {
@@ -23,18 +23,6 @@ export const Topics: FC = () => {
     return 'tests';
   }, [location.pathname]);
 
-  const pageTitle = useMemo(() => {
-    return CATEGORY_LABELS[categoryId ?? ''] || 'Темы';
-  }, [categoryId]);
-
-  const topicsData = useMemo(() => {
-    if (!topics) return [];
-    return topics.map(test => ({
-      title: test.title,
-      path: `/${basePath}/${categoryId}/${test.slug}`,
-    }));
-  }, [topics, basePath, categoryId]);
-
   useEffect(() => {
     if (categoryId) {
       dispatch(getTopics({ categoryId, basePath }));
@@ -43,12 +31,15 @@ export const Topics: FC = () => {
 
   return (
     <>
-      <Header>{pageTitle}</Header>
-      <Spin spinning={isLoading}>
-        {!isLoading && topics && topics.length > 0 && (
-          <TopicsCards data={topicsData} />
-        )}
-      </Spin>
+      <Header>{CATEGORY_LABELS[categoryId ?? ''] || 'Темы'}</Header>
+      {isLoading ?
+        (<Flex align={'center'} justify={'center'} flex={1}>
+          <Spin size="large" />
+        </Flex>) :
+        topics?.length ?
+          <TopicsCards data={topics} /> :
+          <EmptyPlaceholder />
+      }
     </>
   );
 };

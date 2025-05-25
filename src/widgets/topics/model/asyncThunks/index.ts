@@ -5,6 +5,7 @@ import { ErrorMessageType } from 'shared/model/types';
 
 export interface Topic {
   title: string;
+  points: number;
   slug: string;
 }
 

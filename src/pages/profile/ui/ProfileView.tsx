@@ -1,7 +1,8 @@
 import { FC } from 'react';
 
-import { EditOutlined } from '@ant-design/icons';
-import { Typography, Avatar, Button, Tooltip } from 'antd';
+import { SettingOutlined } from '@ant-design/icons';
+import { Typography, Avatar, Button, Tooltip, Flex } from 'antd';
+import { Logout } from 'features/logout/ui/Logout';
 
 import styles from './Profile.module.scss';
 
@@ -18,17 +19,17 @@ export const ProfileView: FC<ProfileViewProps> = ({ apiData, daysOnService, isOw
   if (!apiData) return null;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.userData}>
-        <div className={styles.avatarSection}>
+    <Flex vertical justify={'space-between'} flex={1} className={styles.container}>
+      <Flex vertical gap={20}>
+        <Flex vertical align={'center'} style={{position: 'relative'}}>
           {isOwnProfile && (
             <Tooltip title={'Редактировать профиль'} placement="right">
               <Button
-                icon={<EditOutlined />}
+                icon={<SettingOutlined />}
                 shape="circle"
                 size="middle"
                 onClick={onEditClick}
-                className={styles.editButton}
+                className={styles.edit}
               />
             </Tooltip>
           )}
@@ -37,24 +38,18 @@ export const ProfileView: FC<ProfileViewProps> = ({ apiData, daysOnService, isOw
             src={apiData.avatarUrl ? `http://localhost:5000${apiData.avatarUrl}` : undefined}
             alt={apiData.nickName}
           />
-        </div>
+        </Flex>
         <Title level={3} style={{ marginBottom: 0, marginTop: 0 }}>
           {apiData.nickName}
         </Title>
         <Text>{apiData.about}</Text>
-      </div>
-      <div className={styles.stats}>
-        <Title level={4} style={{ marginBottom: 0, marginTop: 0 }}>Статистика</Title>
-        <div className={styles.statsBlock}>
+        <Title level={4}  style={{ marginBottom: 0, marginTop: 0 }}>Статистика</Title>
+        <Flex vertical gap={10}>
           <Text>Очки: {apiData.points}</Text>
-        </div>
-        <div className={styles.statsBlock}>
-          <Text>
-            Дней на СкиллТест: {daysOnService}{' '}
-            {daysOnService === 1 ? 'день' : daysOnService < 5 ? 'дня' : 'дней'}
-          </Text>
-        </div>
-      </div>
-    </div>
+          <Text>Дней на СкиллТест: {daysOnService}{' '}{daysOnService === 1 ? 'день' : daysOnService < 5 ? 'дня' : 'дней'}</Text>
+        </Flex>
+      </Flex>
+      <Logout/>
+    </Flex>
   );
 };

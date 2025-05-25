@@ -16,7 +16,6 @@ type ProfileEditModalProps = {
   uploadFileList: UploadFile[];
   onUploadChange: (info: { fileList: UploadFile[] }) => void;
   onSave: () => Promise<boolean>;
-  loading: boolean;
 };
 
 export const ProfileEditModal: FC<ProfileEditModalProps> = ({
@@ -29,7 +28,6 @@ export const ProfileEditModal: FC<ProfileEditModalProps> = ({
   uploadFileList,
   onUploadChange,
   onSave,
-  loading,
 }) => {
   const handleOk = async () => {
     const success = await onSave();
@@ -46,7 +44,6 @@ export const ProfileEditModal: FC<ProfileEditModalProps> = ({
       onOk={handleOk}
       okText="Сохранить"
       cancelText="Отмена"
-      confirmLoading={loading}
       destroyOnClose
     >
       <Input

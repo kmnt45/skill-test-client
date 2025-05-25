@@ -37,4 +37,4 @@ const topicsSlice = createSlice({
   },
 });
 
-export default topicsSlice.reducer;
+export const topicsReducer = topicsSlice.reducer;

@@ -1,7 +1,6 @@
 import { FC, useCallback } from 'react';
 
 import { Typography } from 'antd';
-import { ToggleTheme } from 'entities/theme';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from 'shared/constants/routes';
 
@@ -28,7 +27,6 @@ export const AuthLeftPanel: FC = () => {
       <div className={styles.container}>
         <div className={styles.header}>
           <Title>{title}</Title>
-          <ToggleTheme />
         </div>
         <Link onClick={handleToggle}>{subtitle}</Link>
       </div>

@@ -1,30 +1,29 @@
-import { AppRouter } from 'app/providers/appRouter/AppRouter';
-import { Login, Register, Restore, AuthLayout } from 'pages/auth';
+import { AppRouter } from 'app/providers/router/AppRouter';
+import { Login, Register, Restore, ResetPassword } from 'pages/auth';
 import { Categories } from 'pages/categories';
 import { Home } from 'pages/home';
 import { Profile } from 'pages/profile';
 import { Rating } from 'pages/rating';
 import { createBrowserRouter } from 'react-router-dom';
+import { ROUTES } from 'shared/constants/routes';
+import { AuthLayout } from 'widgets/layout';
 import { Questions } from 'widgets/questions';
 import { Task } from 'widgets/task';
 import { Test } from 'widgets/test';
 import { Topics } from 'widgets/topics';
 
-import { ROUTES } from '../constants/routes';
-
 export const router = createBrowserRouter([
   {
     path: ROUTES.HOME,
     element: <AppRouter />,
-    errorElement: null,
     children: [
       {
-        path: 'auth',
         element: <AuthLayout />,
         children: [
-          { path: 'login', element: <Login /> },
-          { path: 'register', element: <Register /> },
-          { path: 'restore-password', element: <Restore /> },
+          { path: ROUTES.LOGIN, element: <Login /> },
+          { path: ROUTES.REGISTER, element: <Register /> },
+          { path: ROUTES.RESTORE, element: <Restore /> },
+          { path: ROUTES.RESET_PASSWORD, element: <ResetPassword /> },
         ],
       },
       { path: ROUTES.HOME, element: <Home /> },
@@ -41,5 +40,3 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
-
-

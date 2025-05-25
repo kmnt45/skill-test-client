@@ -2,7 +2,7 @@
   position: sticky;
   top: 20px;
   height: calc(100vh - 40px);
-  padding: 20px;
+  padding: 15px;
   border-radius: 20px;
   background-color: var(--card-bg);
   display: flex;
@@ -26,13 +26,6 @@
 
 .logoIcon {
   font-size: 20px;
-  color: var(--text-color);
-}
-
-.logoText {
-  font-weight: bold;
-  font-size: 18px;
-  color: var(--text-color);
 }
 
 .nav {
@@ -50,15 +43,10 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--text-color);
   text-decoration: none;
   font-weight: bold;
   padding-bottom: 2px;
   transition: color 0.3s ease;
-
-  &:hover {
-    color: #ffffff;
-  }
 }
 
 .linkTextWrapper {
@@ -81,10 +69,6 @@
   opacity: 0.4;
 }
 
-.linkText {
-  display: inline;
-}
-
 .profile {
   display: flex;
   align-items: center;
@@ -103,10 +87,6 @@
 .dropdownItem {
   width: 100%;
   cursor: pointer;
-}
-
-.logout {
-  color: red;
 }
 
 @media (max-width: 768px) {
@@ -132,7 +112,7 @@
 
 @media (max-width: 1023px) and (min-width: 768px) {
   .collapsed {
-    width: 64px !important; // или текущий размер иконок
+    width: 64px !important;
   }
 
   .logoText,
@@ -148,7 +128,6 @@
     top: 0;
     left: 0;
     height: 100vh;
-    background: #fff; // твой фон
     width: 240px;
     transform: translateX(-100%);
     transition: transform 0.3s ease;

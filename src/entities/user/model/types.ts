@@ -1,6 +1,3 @@
-import { LoadingStage } from 'shared/model/loadingStage';
-import { ApiStatusState } from 'shared/model/types';
-
 export type User = {
   id: string;
   nickName: string;
@@ -12,11 +9,11 @@ export type User = {
   points?: number;
 };
 
-export interface UserState {
-  user: ApiStatusState<User>;
-  users: ApiStatusState<User[]>;
-  updateProfileStatus: LoadingStage;
-  updateAvatarStatus: LoadingStage;
-  updateProfileError: string | null;
-  updateAvatarError: string | null;
-}
+export type AuthResponse = {
+  token: string;
+  user: User;
+};
+
+export type RegisterUser = Omit<User, 'id'>;
+export type LoginUser = Pick<User, 'email' | 'password'>;
+

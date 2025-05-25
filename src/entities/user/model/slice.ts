@@ -1,44 +1,97 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUser, updateUserAvatar, updateUserProfile, getMe, getUsers } from 'entities/user/model/asyncThunks';
+import {
+  getMe,
+  loginUser,
+  registerUser,
+  updateUserAvatar,
+  updateUserProfile,
+  getUser,
+  getUsers, initAuth,
+} from 'entities/user/model/asyncThunks';
+import { User, AuthResponse } from 'entities/user/model/types';
+import Cookies from 'js-cookie';
 import { LOADING_STAGE } from 'shared/constants/loadingStage';
-import { ApiStatusState, User} from 'shared/model/types';
+import { ApiStatusState } from 'shared/model/types';
 
 interface UserState {
-  me: ApiStatusState<User>
+  me: ApiStatusState<User>;
   user: ApiStatusState<User>;
   users: ApiStatusState<User[]>;
+  auth: ApiStatusState<AuthResponse>;
+  isAuthChecked: boolean;
 }
 
 const initialState: UserState = {
-  me: {
-    apiData: null,
-    apiStatus: LOADING_STAGE.LOAD,
-    apiError: null,
-  },
-  user: {
-    apiData: null,
-    apiStatus: LOADING_STAGE.LOAD,
-    apiError: null,
-  },
-  users: {
-    apiData: null,
-    apiStatus: LOADING_STAGE.LOAD,
-    apiError: null,
-  },
+  me: { apiData: null, apiStatus: LOADING_STAGE.LOAD, apiError: null },
+  user: { apiData: null, apiStatus: LOADING_STAGE.LOAD, apiError: null },
+  users: { apiData: null, apiStatus: LOADING_STAGE.LOAD, apiError: null },
+  auth: { apiData: null, apiStatus: LOADING_STAGE.LOAD, apiError: null },
+  isAuthChecked: false,
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    logout(state) {
+    logout: (state) => {
       state.me.apiData = null;
-      state.me.apiStatus = LOADING_STAGE.LOAD;
-      state.me.apiError = null;
+      state.auth.apiData = null;
+      Cookies.remove('user_id');
+      state.isAuthChecked = true;
     },
   },
   extraReducers: (builder) => {
     builder
+      // initAuth
+      .addCase(initAuth.fulfilled, (state, { payload }) => {
+        state.me.apiData = payload;
+        state.isAuthChecked = true;
+      })
+      .addCase(initAuth.rejected, (state) => {
+        state.me.apiData = null;
+        state.isAuthChecked = true;
+      })
+
+      // loginUser
+      .addCase(loginUser.pending, (state) => {
+        state.auth.apiStatus = LOADING_STAGE.LOADING;
+        state.auth.apiError = null;
+      })
+      .addCase(loginUser.fulfilled, (state, { payload }) => {
+        state.auth.apiData = payload;
+        state.auth.apiStatus = LOADING_STAGE.LOAD;
+
+        if (payload.user?.id) {
+          Cookies.set('user_id', payload.user.id.toString());
+          state.me.apiData = payload.user;
+        }
+      })
+      .addCase(loginUser.rejected, (state, { payload }) => {
+        state.auth.apiStatus = LOADING_STAGE.LOAD;
+        state.auth.apiError = payload || null;
+        state.me.apiData = null;
+      })
+
+      // registerUser
+      .addCase(registerUser.pending, (state) => {
+        state.auth.apiStatus = LOADING_STAGE.LOADING;
+        state.auth.apiError = null;
+      })
+      .addCase(registerUser.fulfilled, (state, { payload }) => {
+        state.auth.apiData = payload;
+        state.auth.apiStatus = LOADING_STAGE.LOAD;
+
+        if (payload.user?.id) {
+          Cookies.set('user_id', payload.user.id.toString());
+          state.me.apiData = payload.user;
+        }
+      })
+      .addCase(registerUser.rejected, (state, { payload }) => {
+        state.auth.apiStatus = LOADING_STAGE.LOAD;
+        state.auth.apiError = payload || null;
+      })
+
+      // getMe
       .addCase(getMe.pending, (state) => {
         state.me.apiStatus = LOADING_STAGE.LOADING;
         state.me.apiError = null;
@@ -51,6 +104,8 @@ const userSlice = createSlice({
         state.me.apiStatus = LOADING_STAGE.LOAD;
         state.me.apiError = payload || null;
       })
+
+      // getUser
       .addCase(getUser.pending, (state) => {
         state.user.apiStatus = LOADING_STAGE.LOADING;
         state.user.apiError = null;
@@ -63,6 +118,8 @@ const userSlice = createSlice({
         state.user.apiStatus = LOADING_STAGE.LOAD;
         state.user.apiError = payload || null;
       })
+
+      // getUsers
       .addCase(getUsers.pending, (state) => {
         state.users.apiStatus = LOADING_STAGE.LOADING;
         state.users.apiError = null;
@@ -75,6 +132,8 @@ const userSlice = createSlice({
         state.users.apiStatus = LOADING_STAGE.LOAD;
         state.users.apiError = payload || null;
       })
+
+      // updateUserProfile
       .addCase(updateUserProfile.pending, (state) => {
         state.user.apiStatus = LOADING_STAGE.LOADING;
         state.user.apiError = null;
@@ -82,11 +141,16 @@ const userSlice = createSlice({
       .addCase(updateUserProfile.fulfilled, (state, { payload }) => {
         state.user.apiStatus = LOADING_STAGE.LOAD;
         state.user.apiData = payload;
+        if (state.me.apiData?.id === payload.id) {
+          state.me.apiData = payload; // обновляем и me, если обновился текущий пользователь
+        }
       })
       .addCase(updateUserProfile.rejected, (state, { payload }) => {
         state.user.apiStatus = LOADING_STAGE.LOAD;
         state.user.apiError = payload || null;
       })
+
+      // updateUserAvatar
       .addCase(updateUserAvatar.pending, (state) => {
         state.user.apiStatus = LOADING_STAGE.LOADING;
         state.user.apiError = null;
@@ -97,6 +161,9 @@ const userSlice = createSlice({
           ...state.user.apiData,
           ...payload,
         };
+        if (state.me.apiData?.id === payload.id) {
+          state.me.apiData = { ...state.me.apiData, ...payload };
+        }
       })
       .addCase(updateUserAvatar.rejected, (state, { payload }) => {
         state.user.apiStatus = LOADING_STAGE.LOAD;
@@ -106,4 +173,4 @@ const userSlice = createSlice({
 });
 
 export const { logout } = userSlice.actions;
-export default userSlice.reducer;
+export const userReducer = userSlice.reducer;

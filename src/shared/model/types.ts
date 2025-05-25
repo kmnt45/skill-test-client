@@ -7,14 +7,3 @@ export type ApiStatusState<T> = {
   apiStatus: LoadingStage;
   apiError: ErrorMessageType | null;
 };
-
-export type User = {
-  id: string;
-  nickName: string;
-  email: string;
-  password?: string;
-  avatarUrl?: string;
-  about?: string;
-  createdAt?: string;
-  points?: number;
-};

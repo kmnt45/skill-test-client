@@ -1,15 +1,14 @@
 import { FC } from 'react';
 
 import { GithubOutlined } from '@ant-design/icons';
+import { Flex } from 'antd';
 import { Banner } from 'shared/ui';
-
-import styles from './Home.module.scss';
 
 export const Home: FC = () => {
   return (
     <>
       <Banner />
-      <div className={styles.container}>
+      <Flex gap={20} flex={1} wrap>
         <Banner
           title={'Друг для друга'}
           text={'Этот сервис создан студентами для студентов, чтобы делиться задачами, тестами и опытом.\n' +
@@ -24,7 +23,7 @@ export const Home: FC = () => {
           link={'https://google.com'}
           linkText={'Ссылка на какой-то ресурс'}
         />
-      </div>
+      </Flex>
     </>
   );
 };

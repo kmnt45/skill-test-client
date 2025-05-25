@@ -20,8 +20,8 @@ const initialState: QuestionsState = {
   answers: {},
 };
 
-const categoriesSlice = createSlice({
-  name: 'categories',
+const questionsSlice = createSlice({
+  name: 'questions',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -70,4 +70,4 @@ const categoriesSlice = createSlice({
   },
 });
 
-export default categoriesSlice.reducer;
+export const questionsReducer = questionsSlice.reducer;

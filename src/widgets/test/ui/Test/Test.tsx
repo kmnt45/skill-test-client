@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import { Typography, Spin, Button, Alert, Progress } from 'antd';
+import { Typography, Spin, Button, Flex } from 'antd';
+import { Header } from 'shared/ui';
 
 import styles from './Test.module.scss';
 import { useTest } from '../../lib/useTest';
 import { AnswerList } from '../AnswerList/AnswerList';
-import { Question } from '../Question/Question';
 
 export const Test: FC = () => {
   const {
@@ -16,12 +16,7 @@ export const Test: FC = () => {
     handleSelect,
     handleNext,
     testResult,
-    isSubmitting,
   } = useTest();
-
-  if (isSubmitting) {
-    return <Spin tip="Отправка результатов..." />;
-  }
 
   if (testResult) {
     return (
@@ -35,49 +30,33 @@ export const Test: FC = () => {
     );
   }
 
-  if (!question && !isLoading) {
-    return <Alert type="warning" message="Вопросы не найдены" />;
-  }
-
-  const total = question?.progress.total || 0;
-  const current = (question?.progress.current ?? 0) + 1;
-
   return (
     <>
-      <div className={styles.header}>
-        <Typography.Title level={4}>Вопрос {current} из {total}</Typography.Title>
-        <Progress
-          percent={total ? (current / total) * 100 : 0}
-          showInfo={false}
-          strokeColor="#1890ff"
-          style={{ width: 150 }}
-        />
-      </div>
-
-      {isLoading && <Spin className={styles.loader} />}
-      {!isLoading && question && (
-        <div className={styles.container}>
-          <Question question={question.question} code={question.code} />
-
-          <AnswerList
-            answers={question.answers}
-            selected={selected}
-            checkResult={checkResult}
-            onSelect={handleSelect}
-          />
-
-          <div className={styles.buttons}>
+      <Flex flex={1}>
+        {isLoading ? (
+          <Flex align={'center'} justify={'center'} flex={1}>
+            <Spin size="large" />
+          </Flex>) : question && (
+          <Flex vertical flex={1} gap={20}>
+            <Flex vertical flex={1} gap={20}>
+              <Header>{question.question}</Header>
+              <AnswerList
+                answers={question.answers}
+                selected={selected}
+                checkResult={checkResult}
+                onSelect={handleSelect}
+              />
+            </Flex>
             <Button
               disabled={selected === null || !checkResult}
               onClick={handleNext}
-              size="large"
               type="primary"
             >
-              {current === total ? 'Завершить тест' : 'Продолжить'}
+              {question.progress.current === question.progress.total ? 'Завершить тест' : 'Продолжить'}
             </Button>
-          </div>
-        </div>
-      )}
+          </Flex>
+        )}
+      </Flex>
     </>
   );
 };

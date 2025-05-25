@@ -20,9 +20,7 @@ export const CategoriesCards: FC<CategoriesCardsParams> = ({ data }) => {
 
         return (
           <NavLink to={stack} key={index} className={styles.card}>
-            <div className={styles.container}>
-              {label && <Title level={4}>{label}</Title>}
-            </div>
+              {label && <Title level={4} style={{margin: 0}}>{label}</Title>}
           </NavLink>
         );
       })}

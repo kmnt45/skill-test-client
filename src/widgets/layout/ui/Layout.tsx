@@ -1,7 +1,7 @@
-import { FC, ReactNode, useState, useEffect } from 'react';
+import { FC, ReactNode } from 'react';
 
-import { useLocation } from 'react-router-dom';
-import { ROUTES } from 'shared/constants/routes';
+import { Flex } from 'antd';
+import { useIsPublicRoute } from 'shared/hooks';
 import { LeftSideBar } from 'widgets/leftSideBar';
 
 import styles from './Layout.module.scss';
@@ -11,22 +11,12 @@ interface LayoutProps {
 }
 
 export const Layout: FC<LayoutProps> = ({ children }) => {
-  const { pathname } = useLocation();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  const isPublicPage = pathname === ROUTES.LOGIN || pathname === ROUTES.REGISTER || pathname === ROUTES.RESTORE;
+  const isPublicRoute = useIsPublicRoute();
 
   return (
     <div className={styles.layout}>
-      {!isPublicPage && !isMobile && <LeftSideBar />}
-      <main className={styles.main}>{children}</main>
+      {!isPublicRoute && <LeftSideBar />}
+      <Flex vertical gap={20} flex={1}>{children}</Flex>
     </div>
   );
 };
