@@ -3,7 +3,6 @@ import { FC } from 'react';
 import { AuthForm } from './AuthForm';
 import { useLoginForm } from '../lib/useLoginForm';
 
-
 export const Login: FC = () => {
   const formik = useLoginForm();
 

@@ -19,8 +19,14 @@ export const ROUTES = {
   RATING: '/rating',
 } as const;
 
+export const MAIN_AUTH_ROUTES: RoutePath[] = [
+  ROUTES.LOGIN,
+  ROUTES.REGISTER,
+];
+
 export const PUBLIC_ROUTES: RoutePath[] = [
   ROUTES.LOGIN,
   ROUTES.REGISTER,
   ROUTES.RESTORE,
+  ROUTES.RESET_PASSWORD,
 ];

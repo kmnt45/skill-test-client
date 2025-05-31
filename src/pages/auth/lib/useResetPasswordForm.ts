@@ -3,14 +3,16 @@ import { resetPassword } from 'entities/user/model/asyncThunks';
 import { useAuthForm } from './useAuthForm';
 import { resetPasswordInitialValues, validationResetPasswordSchema } from './validation';
 
-type ResetPasswordFormValues = typeof resetPasswordInitialValues & { email: string };
+type ResetPasswordFormValues = typeof resetPasswordInitialValues;
 
-export const useResetPasswordForm = (email: string) => {
+export const useResetPasswordForm = (token: string) => {
   return useAuthForm<ResetPasswordFormValues>({
-    initialValues: { ...resetPasswordInitialValues, email },
+    initialValues: resetPasswordInitialValues,
     validationSchema: validationResetPasswordSchema,
     asyncThunk: resetPassword,
     successMessage: 'Пароль успешно изменён',
     errorMessage: 'Не удалось изменить пароль',
+    extraData: { token },
   });
 };
+

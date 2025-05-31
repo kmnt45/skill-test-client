@@ -1,25 +1,23 @@
 import { StrictMode } from 'react';
-
+import { Provider } from 'react-redux';
+import { RouterProvider } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 
-import { MessageProvider } from 'app/providers/message/MessageProvider';
-import { Provider } from 'react-redux';
-
-import { router } from './providers/router';
-import { store } from './providers/store';
-import { AppThemeProvider } from './providers/theme';
+import { router } from 'app/providers/router';
+import { AppThemeProvider } from 'app/providers/theme';
+import { AppMessageProvider } from 'app/providers/message';
+import { store } from 'app/store';
 
 import 'shared/styles/index.scss';
-import { RouterProvider } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <AppThemeProvider>
-        <MessageProvider>
+        <AppMessageProvider>
           <RouterProvider router={router} />
-        </MessageProvider>
+        </AppMessageProvider>
       </AppThemeProvider>
     </Provider>
-  </StrictMode>
+  </StrictMode>,
 );

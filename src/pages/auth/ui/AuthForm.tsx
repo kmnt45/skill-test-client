@@ -1,6 +1,6 @@
 import { Button, Form } from 'antd';
 import { FormikValues, FormikProps } from 'formik';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { ROUTES } from 'shared/constants/routes';
 import { InputWithLabel } from 'shared/ui';
 
@@ -19,6 +19,7 @@ type AuthFormProps<T extends FormikValues> = {
 };
 
 export const AuthForm = <T extends FormikValues>({ fields, formik, submitLabel }: AuthFormProps<T>) => {
+  const {pathname} = useLocation();
   const { errors, touched, getFieldProps, isValid, dirty, handleSubmit } = formik;
 
   return (
@@ -36,7 +37,7 @@ export const AuthForm = <T extends FormikValues>({ fields, formik, submitLabel }
       <Button type="primary" disabled={!isValid || !dirty} htmlType="submit">
         {submitLabel}
       </Button>
-      <NavLink className={styles.restoreButton} to={ROUTES.RESTORE}>Забыли пароль?</NavLink>
+      {pathname === ROUTES.LOGIN &&<NavLink className={styles.restoreButton} to={ROUTES.RESTORE}>Забыли пароль?</NavLink>}
     </Form>
   );
 };

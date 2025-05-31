@@ -1,21 +1,21 @@
-import { AppRouter } from 'app/providers/router/AppRouter';
+import { AppRouterProvider } from 'app/providers/router/AppRouterProvider';
 import { Login, Register, Restore, ResetPassword } from 'pages/auth';
 import { Categories } from 'pages/categories';
 import { Home } from 'pages/home';
 import { Profile } from 'pages/profile';
+import { Questions } from 'pages/questions';
 import { Rating } from 'pages/rating';
+import { Task } from 'pages/task';
+import { Test } from 'pages/test';
+import { Topics } from 'pages/topics';
 import { createBrowserRouter } from 'react-router-dom';
 import { ROUTES } from 'shared/constants/routes';
 import { AuthLayout } from 'widgets/layout';
-import { Questions } from 'widgets/questions';
-import { Task } from 'widgets/task';
-import { Test } from 'widgets/test';
-import { Topics } from 'widgets/topics';
 
 export const router = createBrowserRouter([
   {
     path: ROUTES.HOME,
-    element: <AppRouter />,
+    element: <AppRouterProvider />,
     children: [
       {
         element: <AuthLayout />,

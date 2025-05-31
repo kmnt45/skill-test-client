@@ -1,9 +1,9 @@
-export { BackButton } from './BackButton/BackButton';
-export { CategoriesCards } from 'shared/ui/CategoriesCards/CategoriesCards';
-export { InputWithLabel } from './InputWithLabel/InputWithLabel';
-export { EmptyPlaceholder } from './EmptyPlaceholder/EmptyPlaceholder';
-export { Header } from 'shared/ui/Header/Header';
-export { Banner } from './Banner/Banner';
-export { TopicsCards, type TopicCard } from './TopicsCards/TopicsCards';
-export { Markdown } from './Markdown/Markdown';
-export { CodeEditor } from './CodeEditor/CodeEditor';
+export { BackButton } from './BackButton';
+export { Cards } from './Cards';
+export { InputWithLabel } from './InputWithLabel';
+export { EmptyPlaceholder } from './EmptyPlaceholder';
+export { Header } from './Header';
+export { Banner } from './Banner';
+export { Markdown } from './Markdown';
+export { CodeEditor } from './CodeEditor';
+export { Loader } from './Loader';

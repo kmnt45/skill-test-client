@@ -1,0 +1,1 @@
+export { HeaderSec } from './ui/Header';

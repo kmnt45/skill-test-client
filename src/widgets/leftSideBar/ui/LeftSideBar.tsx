@@ -1,5 +1,5 @@
-import { FC } from 'react';
-
+import { FC, JSX, useMemo } from 'react';
+import { NavLink } from 'react-router-dom';
 import {
   FileTextOutlined,
   QuestionOutlined,
@@ -7,39 +7,62 @@ import {
   FormOutlined,
 } from '@ant-design/icons';
 import { Avatar, Tooltip, Typography, Space, Flex } from 'antd';
-import { NavLink } from 'react-router-dom';
-import { ROUTES } from 'shared/constants/routes';
-import { useAppSelector } from 'shared/hooks/useAppSelector';
+
+import { ROUTES } from 'shared/constants';
+import { useAppSelector } from 'shared/hooks';
 
 import styles from './LeftSideBar.module.scss';
 
 const { Text, Title } = Typography;
 
-const NAV_ITEMS = [
-  {
-    title: 'Вопросы',
-    icon: <QuestionOutlined />,
-    path: ROUTES.QUESTIONS,
-  },
-  {
-    title: 'Тесты',
-    icon: <FileTextOutlined />,
-    path: ROUTES.TESTS,
-  },
-  {
-    title: 'Задачи',
-    icon: <FormOutlined />,
-    path: ROUTES.TASKS,
-  },
-  {
-    title: 'Рейтинг',
-    icon: <TrophyOutlined />,
-    path: ROUTES.RATING,
-  },
-];
+type NavItemType = {
+  title: string;
+  icon: JSX.Element;
+  path: string;
+};
+
+const NavItem: FC<NavItemType> = ({ title, icon, path }) => (
+  <NavLink
+    to={path}
+    className={({ isActive }) =>
+      `${styles.navLinkInner} ${isActive ? styles.activeNavLink : ''}`
+    }
+  >
+    <Tooltip title={title} placement="right" className={styles.tooltip}>
+      {icon}
+    </Tooltip>
+    <Text strong>{title}</Text>
+  </NavLink>
+);
 
 export const LeftSideBar: FC = () => {
   const apiData = useAppSelector((state) => state.user.me.apiData);
+
+  const navItems = useMemo<NavItemType[]>(
+    () => [
+      {
+        title: 'Вопросы',
+        icon: <QuestionOutlined />,
+        path: ROUTES.QUESTIONS,
+      },
+      {
+        title: 'Тесты',
+        icon: <FileTextOutlined />,
+        path: ROUTES.TESTS,
+      },
+      {
+        title: 'Задачи',
+        icon: <FormOutlined />,
+        path: ROUTES.TASKS,
+      },
+      {
+        title: 'Рейтинг',
+        icon: <TrophyOutlined />,
+        path: ROUTES.RATING,
+      },
+    ],
+    [],
+  );
 
   return (
     <Flex vertical justify="space-between" className={styles.sidebar}>
@@ -52,31 +75,16 @@ export const LeftSideBar: FC = () => {
 
         <nav className={styles.nav}>
           <Space direction="vertical" size={20} style={{ width: '100%' }}>
-            {NAV_ITEMS.map(({ title, icon, path }) => (
-              <NavLink
-                to={path}
-                key={title}
-                className={({ isActive }) =>
-                  `${styles.navLinkInner} ${isActive ? styles.activeNavLink : ''}`
-                }
-              >
-                <Tooltip title={title} placement="right" className={styles.tooltip}>
-                  {icon}
-                </Tooltip>
-                <Text strong>{title}</Text>
-              </NavLink>
+            {navItems.map(({ title, icon, path }) => (
+              <NavItem key={title} title={title} icon={icon} path={path} />
             ))}
           </Space>
         </nav>
       </Flex>
 
       {apiData?.nickName && (
-        <NavLink to={`/profile/${apiData?.id}`} className={styles.profile}>
-          <Avatar
-            size="small"
-            src={apiData.avatarUrl && `http://localhost:5000${apiData.avatarUrl}`}
-            alt={apiData.nickName}
-          >
+        <NavLink to={`/profile/${apiData.id}`} className={styles.profile}>
+          <Avatar size="small" src={apiData.avatar || undefined} alt={apiData.nickName}>
             {apiData.nickName[0]}
           </Avatar>
           <Text className={styles.profileName} title={apiData.nickName}>

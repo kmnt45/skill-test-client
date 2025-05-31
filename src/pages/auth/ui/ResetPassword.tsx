@@ -1,24 +1,23 @@
 import { FC, useEffect } from 'react';
 
-import { useLocation, useNavigate } from 'react-router-dom';
-import { ROUTES } from 'shared/constants/routes';
-
-import { AuthForm } from './AuthForm';
-import { useResetPasswordForm } from '../lib/useResetPasswordForm';
+import { useResetPasswordForm } from 'pages/auth/lib/useResetPasswordForm';
+import { AuthForm } from 'pages/auth/ui/AuthForm';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { ROUTES } from 'shared/constants';
 
 export const ResetPassword: FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const [searchParams] = useSearchParams();
 
-  const email = (location.state as { email?: string })?.email || '';
+  const token = searchParams.get('token') || '';
 
   useEffect(() => {
-    if (!email) {
+    if (!token) {
       navigate(ROUTES.RESTORE);
     }
-  }, [email, navigate]);
+  }, [token, navigate]);
 
-  const formik = useResetPasswordForm(email);
+  const formik = useResetPasswordForm(token);
 
   useEffect(() => {
     if (formik.status === 'success') {
@@ -31,10 +30,10 @@ export const ResetPassword: FC = () => {
       submitLabel="Сменить пароль"
       formik={formik}
       fields={[
-        { name: 'code', type: 'text', placeholder: 'Введите код из письма' },
-        { name: 'password', type: 'password', placeholder: 'Новый пароль' },
-        { name: 'confirmPassword', type: 'password', placeholder: 'Подтвердите пароль' },
+        { name: 'newPassword', type: 'password', placeholder: 'Новый пароль' },
+        { name: 'confirmNewPassword', type: 'password', placeholder: 'Подтвердите пароль' },
       ]}
     />
   );
 };
+

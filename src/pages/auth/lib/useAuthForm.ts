@@ -1,11 +1,13 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import type { AsyncThunk } from '@reduxjs/toolkit';
-import { useGlobalMessage } from 'app/providers/message/MessageProvider';
-import { useFormik, FormikHelpers, FormikConfig } from 'formik';
+import { useFormik, FormikHelpers } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from 'shared/constants/routes';
-import { useAppDispatch } from 'shared/hooks/useAppDispatch';
 import { ObjectSchema } from 'yup';
+
+import { useAppMessage } from 'app/providers/message';
+import { ROUTES } from 'shared/constants';
+import { useAppDispatch } from 'shared/hooks';
+import { ThunkConfig } from 'shared/model';
 
 type AuthResponse = {
   user?: { id?: string | number };
@@ -16,9 +18,10 @@ type AuthResponse = {
 type UseAuthFormParams<T extends Record<string, unknown>> = {
   initialValues: T;
   validationSchema: ObjectSchema<T>;
-  asyncThunk: AsyncThunk<AuthResponse, T, any>;
+  asyncThunk: AsyncThunk<AuthResponse, T, ThunkConfig>;
   successMessage: string;
   errorMessage?: string;
+  extraData?: Partial<T>;
 };
 
 export function useAuthForm<T extends Record<string, unknown>>({
@@ -27,35 +30,42 @@ export function useAuthForm<T extends Record<string, unknown>>({
   asyncThunk,
   successMessage,
   errorMessage = 'Произошла ошибка. Попробуйте снова.',
+  extraData,
 }: UseAuthFormParams<T>) {
   const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
-  const message = useGlobalMessage();
 
-  const formikConfig: FormikConfig<T> = {
-    initialValues,
-    validationSchema,
-    onSubmit: async (values: T, formikHelpers: FormikHelpers<T>) => {
-      try {
-        const resultAction = await dispatch(asyncThunk(values));
-        const payload: AuthResponse = unwrapResult(resultAction);
+  const message = useAppMessage();
 
-        if (payload?.error) {
-          message.error(payload.error);
-        } else if (payload?.user?.id) {
-          console.log(payload?.user?.id)
-          message.success(successMessage);
-          navigate(ROUTES.HOME);
-        } else {
-          message.error(payload?.message || errorMessage);
-        }
-      } catch {
-        message.error(errorMessage);
-      } finally {
-        formikHelpers.setSubmitting(false);
+  const onSubmit = async (values: T, formikHelpers: FormikHelpers<T>) => {
+    try {
+      const payloadToSend = extraData ? { ...values, ...extraData } : values;
+
+      const resultAction = await dispatch(asyncThunk(payloadToSend));
+
+      const payload = unwrapResult(resultAction);
+
+      if (payload.error) {
+        message.error(payload.error);
+      } else if (payload.user?.id) {
+        message.success(successMessage);
+        navigate(ROUTES.HOME);
+      } else if (payload.message) {
+        message.success(successMessage);
+      } else {
+        message.error(payload.message ?? errorMessage);
       }
-    },
+    } catch {
+      message.error(errorMessage);
+    } finally {
+      formikHelpers.setSubmitting(false);
+    }
   };
 
-  return useFormik<T>(formikConfig);
+  return useFormik<T>({
+    initialValues,
+    validationSchema,
+    onSubmit,
+  });
 }

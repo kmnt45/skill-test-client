@@ -1,0 +1,1 @@
+export { Topics } from 'pages/topics/ui/Topics';

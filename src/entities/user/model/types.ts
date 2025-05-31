@@ -3,7 +3,7 @@ export type User = {
   nickName: string;
   email: string;
   password?: string;
-  avatarUrl?: string;
+  avatar?: string;
   about?: string;
   createdAt?: string;
   points?: number;
@@ -15,5 +15,6 @@ export type AuthResponse = {
 };
 
 export type RegisterUser = Omit<User, 'id'>;
+
 export type LoginUser = Pick<User, 'email' | 'password'>;
 

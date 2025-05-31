@@ -1,0 +1,27 @@
+@use '../../../styles/mixins' as *;
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  @include container;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .subcategories {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

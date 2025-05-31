@@ -1,0 +1,1 @@
+export { Task } from 'pages/task/ui/Task'

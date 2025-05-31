@@ -4,7 +4,7 @@ import { appAxios } from 'shared/api/appAxios';
 import { handleError } from 'shared/lib/handleError';
 import { ErrorMessageType } from 'shared/model/types';
 
-import { AuthResponse, CreateUser, LoginUser, RegisterUser } from '../types';
+import { AuthResponse, LoginUser, RegisterUser } from '../types';
 import { User } from '../types';
 
 export const getMe = createAsyncThunk<
@@ -133,14 +133,18 @@ export const restorePassword = createAsyncThunk<
 
 export const resetPassword = createAsyncThunk<
   { message: string },
-  { email: string; code: string; password: string },
+  { token: string; newPassword: string },
   { rejectValue: ErrorMessageType }
->('auth/resetPassword', async (payload, { rejectWithValue }) => {
-  try {
-    const { data } = await appAxios.post('/auth/reset-password', payload);
-    return data;
-  } catch (error) {
-    return rejectWithValue(handleError(error));
+>(
+  'auth/resetPassword',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { data } = await appAxios.post('/auth/reset-password', payload);
+      return data;
+    } catch (error) {
+      return rejectWithValue(handleError(error));
+    }
   }
-});
+);
+
 

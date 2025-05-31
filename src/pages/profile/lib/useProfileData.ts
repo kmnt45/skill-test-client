@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 
 import { RcFile, UploadFile } from 'antd/lib/upload/interface';
-import { useGlobalMessage } from 'app/providers/message/MessageProvider';
+import { useAppMessage } from 'app/providers/message';
 import { getMe, getUser, updateUserAvatar, updateUserProfile } from 'entities/user/model/asyncThunks';
 import { useParams } from 'react-router-dom';
 import { LOADING_STAGE } from 'shared/constants/loadingStage';
@@ -9,8 +9,10 @@ import { useAppDispatch, useAppSelector } from 'shared/hooks';
 
 export const useProfileData = () => {
   const dispatch = useAppDispatch();
+
   const { profileId } = useParams<{ profileId: string }>();
-  const message = useGlobalMessage();
+
+  const message = useAppMessage();
 
   const me = useAppSelector((state) => state.user.me.apiData);
   const meStatus = useAppSelector((state) => state.user.me.apiStatus);
@@ -19,6 +21,7 @@ export const useProfileData = () => {
   const user = useAppSelector((state) => state.user.user.apiData);
   const userStatus = useAppSelector((state) => state.user.user.apiStatus);
   const userError = useAppSelector((state) => state.user.user.apiError);
+  const isAuthChecked = useAppSelector((state) => state.user.isAuthChecked);
 
   const isOwnProfile = !profileId || (me && profileId === me.id);
 
@@ -39,16 +42,22 @@ export const useProfileData = () => {
   }, [apiData]);
 
   useEffect(() => {
+    if (!isAuthChecked) return;
+
     if (!profileId) {
-      if (!me && meStatus !== LOADING_STAGE.LOADING) dispatch(getMe());
+      if (!me && meStatus !== LOADING_STAGE.LOADING) {
+        dispatch(getMe());
+      }
     } else {
       if (me && profileId === me.id) {
-        if (!me && meStatus !== LOADING_STAGE.LOADING) dispatch(getMe());
+        if (!me && meStatus !== LOADING_STAGE.LOADING) {
+          dispatch(getMe());
+        }
       } else if (!user || user.id !== profileId) {
         dispatch(getUser(profileId));
       }
     }
-  }, [profileId, me, user, dispatch, meStatus]);
+  }, [isAuthChecked, profileId, me, user, dispatch, meStatus]);
 
   useEffect(() => {
     if (apiData) {

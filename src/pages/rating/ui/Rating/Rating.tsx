@@ -42,14 +42,14 @@ export const Rating: FC = () => {
           return (
             <div key={user.id} className={styles.item}>
               <Avatar
-                src={user.avatarUrl ? `http://localhost:5000${user.avatarUrl}` : undefined}
+                src={user.avatar || undefined}
                 alt={user.nickName}
                 className={styles.avatar}
               />
               <NavLink to={`/profile/${user.id}`} className={styles.name}>
                 {user.nickName} {isMe && <span className={styles.youLabel}>(Вы)</span>}
               </NavLink>
-              <div className={styles.points}>{user.points} очков</div>
+              <div className={styles.points}>{user.points}🔥</div>
             </div>
           );
         })}

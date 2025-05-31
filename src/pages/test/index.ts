@@ -1,0 +1,1 @@
+export { Test } from 'pages/test/ui/Test/Test'

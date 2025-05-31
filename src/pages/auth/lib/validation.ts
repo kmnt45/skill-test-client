@@ -19,9 +19,8 @@ export const restoreInitialValues = {
 };
 
 export const resetPasswordInitialValues = {
-  code: '',
-  password: '',
-  confirmPassword: '',
+  newPassword: '',
+  confirmNewPassword: '',
 };
 
 export const validationRegistrationSchema = yup.object({
@@ -71,18 +70,13 @@ export const validationRestoreSchema = yup.object({
 });
 
 export const validationResetPasswordSchema = yup.object({
-  code: yup
-    .string()
-    .required('Обязательное поле')
-    .length(6, 'Код должен содержать 6 символов'),
-
-  password: yup
+  newPassword: yup
     .string()
     .required('Обязательное поле')
     .matches(PASSWORD_REGEX, 'Пароль должен содержать минимум 8 символов, включая заглавные буквы и цифры'),
 
-  confirmPassword: yup
+  confirmNewPassword: yup
     .string()
     .required('Обязательное поле')
-    .oneOf([yup.ref('password')], 'Пароли не совпадают'),
+    .oneOf([yup.ref('newPassword')], 'Пароли не совпадают'),
 });
