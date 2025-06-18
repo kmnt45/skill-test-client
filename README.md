@@ -1,4 +1,4 @@
-# Хостится на https://skilltest.ru
+# Хостится на https://skill-test.ru
 
 # React + TypeScript + Vite
 
