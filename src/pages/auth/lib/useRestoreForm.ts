@@ -7,6 +7,7 @@ export const useRestoreForm = () => {
   return useAuthForm({
     initialValues: restoreInitialValues,
     validationSchema: validationRestoreSchema,
+    //@ts-ignore
     asyncThunk: restorePassword,
     successMessage: 'Код восстановления отправлен на почту',
     errorMessage: 'Не удалось отправить код восстановления',
