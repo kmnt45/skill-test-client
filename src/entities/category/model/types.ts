@@ -1,6 +1,11 @@
+export type Category = {
+  title: string;
+  path: string;
+  image: string;
+}
 
-export interface Topic {
+export type Topic = {
   title: string;
   points: number;
-  slug: string;
+  path: string;
 }

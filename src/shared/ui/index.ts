@@ -7,3 +7,4 @@ export { Banner } from './Banner';
 export { Markdown } from './Markdown';
 export { CodeEditor } from './CodeEditor';
 export { Loader } from './Loader';
+export { Logo } from './Logo';

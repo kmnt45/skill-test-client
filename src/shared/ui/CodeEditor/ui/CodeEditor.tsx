@@ -3,6 +3,7 @@ import { FC, useState, useEffect, useMemo } from 'react';
 import { javascript } from '@codemirror/lang-javascript';
 import type { LanguageSupport } from '@codemirror/language';
 import CodeMirror from '@uiw/react-codemirror';
+import { Flex } from 'antd';
 
 type Language = 'js' | 'ts';
 
@@ -18,10 +19,10 @@ const languageMap: Record<Language, LanguageSupport> = {
 };
 
 export const CodeEditor: FC<CodeEditorProps> = ({
-                                                  value = '',
-                                                  onChange,
-                                                  language = 'js',
-                                                }) => {
+  value = '',
+  onChange,
+  language = 'js',
+}) => {
   const [code, setCode] = useState(value);
 
   useEffect(() => {
@@ -36,14 +37,25 @@ export const CodeEditor: FC<CodeEditorProps> = ({
   };
 
   return (
-    <CodeMirror
-      value={code}
-      height="100%"
-      width="100%"
-      theme="dark"
-      extensions={[langExtension]}
-      onChange={handleChange}
-      style={{ flex: 1, backgroundColor: 'transparent' }}
-    />
+    <Flex
+      style={{
+        width: '100%',
+        height: '100%',
+        overflowX: 'auto',
+        overflowY: 'auto',
+        borderRadius: '15px',
+      }}
+    >
+      <CodeMirror
+        value={code}
+        height="100%"
+        theme="dark"
+        extensions={[langExtension]}
+        onChange={handleChange}
+        style={{
+          flex: '1',
+        }}
+      />
+    </Flex>
   );
 };

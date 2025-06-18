@@ -58,9 +58,9 @@ export const ProfileEditModal: FC<ProfileEditModalProps> = ({
         placeholder="Описание"
         value={about}
         onChange={(e) => setAbout(e.target.value)}
-        rows={4}
+        rows={7}
         maxLength={200}
-        style={{ marginBottom: 12 }}
+        style={{ marginBottom: 12, maxHeight: 200 }}
       />
       <Upload
         accept="image/*"

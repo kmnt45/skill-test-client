@@ -1,4 +1,8 @@
+@use '../../../../shared/styles/mixins' as *;
+
 .markdown {
+  @include container;
+  padding: 0 15px;
 
   code {
     color: #f8f8f2;

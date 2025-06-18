@@ -22,7 +22,7 @@ export const ProfileView: FC<ProfileViewProps> = ({ apiData, daysOnService, isOw
 
   return (
     <Flex flex={1} gap={20}>
-      <Flex vertical justify={'space-between'} flex={1} className={styles.container}>
+      <Flex vertical justify={'space-between'} flex={1} gap={20} className={styles.container}>
         <Flex vertical gap={20}>
           <Flex vertical align={'center'} style={{ position: 'relative' }}>
             {isOwnProfile && (

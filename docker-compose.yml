@@ -1,0 +1,12 @@
+services:
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "445:443"
+    volumes:
+      - /etc/letsencrypt/live/eugek0.ru/fullchain.pem:/etc/nginx/certs/fullchain.pem
+      - /etc/letsencrypt/live/eugek0.ru/privkey.pem:/etc/nginx/certs/privkey.pem
+    env_file: .env.production

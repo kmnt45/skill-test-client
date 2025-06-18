@@ -1,7 +1,9 @@
 import axios, { AxiosRequestConfig, isAxiosError } from 'axios';
 
+const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
+
 export const appAxios = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: BASE_URL,
   withCredentials: true,
 });
 

@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm';
 
 import 'highlight.js/styles/github-dark.css';
 import styles from 'shared/ui/Markdown/ui/Markdown.module.scss';
+import { Flex } from 'antd';
 
 type MarkdownProps = {
   content: string;
@@ -13,13 +14,13 @@ type MarkdownProps = {
 
 export const Markdown: FC<MarkdownProps> = ({ content }) => {
   return (
-    <div className={styles.markdown}>
+    <Flex vertical className={styles.markdown}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight]}
       >
         {content}
       </ReactMarkdown>
-    </div>
+    </Flex>
   );
 };

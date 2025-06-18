@@ -6,15 +6,6 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "baseUrl": "./src",
-    "paths": {
-      "app/*": ["app/*"],
-      "shared/*": ["shared/*"],
-      "entities/*": ["entities/*"],
-      "features/*": ["features/*"],
-      "widgets/*": ["widgets/*"],
-      "pages/*": ["pages/*"]
-    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -29,7 +20,18 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Aliases */
+    "baseUrl": "./src",
+    "paths": {
+      "app/*": ["app/*"],
+      "shared/*": ["shared/*"],
+      "entities/*": ["entities/*"],
+      "features/*": ["features/*"],
+      "widgets/*": ["widgets/*"],
+      "pages/*": ["pages/*"]
+    }
   },
   "include": ["src"]
 }

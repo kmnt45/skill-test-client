@@ -10,6 +10,7 @@ import { Avatar, Tooltip, Typography, Space, Flex } from 'antd';
 
 import { ROUTES } from 'shared/constants';
 import { useAppSelector } from 'shared/hooks';
+import { Logo } from 'shared/ui';
 
 import styles from './LeftSideBar.module.scss';
 
@@ -68,6 +69,7 @@ export const LeftSideBar: FC = () => {
     <Flex vertical justify="space-between" className={styles.sidebar}>
       <Flex vertical gap={40}>
         <NavLink to={ROUTES.HOME} className={styles.logo}>
+          <Logo/>
           <Title level={4} style={{ margin: 0 }}>
             СкиллТест
           </Title>
@@ -84,7 +86,7 @@ export const LeftSideBar: FC = () => {
 
       {apiData?.nickName && (
         <NavLink to={`/profile/${apiData.id}`} className={styles.profile}>
-          <Avatar size="small" src={apiData.avatar || undefined} alt={apiData.nickName}>
+          <Avatar size="default" src={apiData.avatar || undefined} alt={apiData.nickName}>
             {apiData.nickName[0]}
           </Avatar>
           <Text className={styles.profileName} title={apiData.nickName}>

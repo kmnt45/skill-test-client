@@ -1,43 +1,77 @@
 import { FC } from 'react';
-
-import { Flex, Typography } from 'antd';
+import { Flex, Typography, Avatar, Image } from 'antd';
 import { NavLink } from 'react-router-dom';
-import { CATEGORY_LABELS } from 'shared/constants/categoryLabels';
 
 import styles from 'shared/ui/Cards/ui/Cards.module.scss';
+import { User } from 'entities/user';
+import { Category } from 'entities/category';
 
 const { Title, Text } = Typography;
 
 type Card = {
   title?: string;
-  slug?: string;
+  path?: string;
   points?: number;
 };
 
 type CardsProps =
-  | { type: 'categories'; data: string[] }
+  | { type: 'users'; data: User[] }
+  | { type: 'categories'; data: Category[] }
   | { type: 'topics'; data: Card[] };
 
 export const Cards: FC<CardsProps> = ({ data, type }) => {
   const isCategories = type === 'categories';
+  const isUsers = type === 'users';
 
   return (
-    <Flex wrap="wrap" gap={20} vertical={!isCategories}>
+    <Flex
+      wrap="wrap"
+      gap={20}
+      vertical={!isCategories}
+      className={isCategories ? styles.categoriesWrapper : undefined}
+    >
       {data.map((item, index) => {
-        const to = isCategories ? item : (item as Card).slug || '#';
-        const title = isCategories
-          ? CATEGORY_LABELS[item as string] || item
-          : (item as Card).title;
-        const points = !isCategories && (item as Card).points;
+        // ===== USERS =====
+        if (isUsers) {
+          const user = item as User;
+          return (
+            <NavLink to={`/profile/${user.id}`} key={user.id} className={styles.card}>
+              <Flex align="center" gap={20} justify={'space-between'}>
+                <Flex align={'center'} gap={20}>
+                  <Avatar src={user.avatar} size={48} />
+                  <Text strong>{user.nickName}</Text>
+                </Flex>
+                <Text>{user.points}🔥</Text>
+              </Flex>
+            </NavLink>
+          );
+        }
 
-        return (
-          <NavLink to={to} key={index} className={styles.card}>
-            <Flex
-              align="center"
-              justify={isCategories ? 'center' : 'space-between'}
+        // ===== CATEGORIES =====
+        if (isCategories) {
+          const category = item as Category;
+
+          return (
+            <NavLink
+              to={category.path}
+              key={category.path}
+              className={`${styles.card} ${styles.categoryCard}`}
             >
-              <Title level={4} style={{ margin: 0 }}>{title}</Title>
-              {points && <Text strong>{points}🔥</Text>}
+              <Flex align="center" justify="center" gap={20}>
+                <Image preview={false} width={30} src={category.image}/>
+                <Title level={4} style={{ margin: 0 }}>{category.title}</Title>
+              </Flex>
+            </NavLink>
+          );
+        }
+
+        // ===== TOPICS =====
+        const card = item as Card;
+        return (
+          <NavLink to={card.path || '#'} key={card.path || index} className={styles.card}>
+            <Flex align="center" justify="space-between">
+              <Title level={4} style={{ margin: 0 }}>{card.title}</Title>
+              {card.points !== undefined && <Text strong>{card.points}🔥</Text>}
             </Flex>
           </NavLink>
         );

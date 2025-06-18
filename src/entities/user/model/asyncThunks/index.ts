@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import Cookies from 'js-cookie';
 import { appAxios } from 'shared/api/appAxios';
 import { handleError } from 'shared/lib/handleError';
 import { ErrorMessageType } from 'shared/model/types';
@@ -81,9 +80,10 @@ export const registerUser = createAsyncThunk<
   AuthResponse,
   RegisterUser,
   { rejectValue: ErrorMessageType }
->('auth/registerUser', async (userData, { rejectWithValue }) => {
+>('auth/registerUser', async (userData, { rejectWithValue, dispatch }) => {
   try {
     const { data } = await appAxios.post('/auth/register', userData);
+    await dispatch(getMe());
     return data;
   } catch (error) {
     return rejectWithValue(handleError(error));
@@ -94,9 +94,10 @@ export const loginUser = createAsyncThunk<
   AuthResponse,
   LoginUser,
   { rejectValue: ErrorMessageType }
->('auth/loginUser', async (credentials, { rejectWithValue }) => {
+>('auth/loginUser', async (credentials, { rejectWithValue, dispatch }) => {
   try {
     const { data } = await appAxios.post('/auth/login', credentials);
+    await dispatch(getMe());
     return data;
   } catch (error) {
     return rejectWithValue(handleError(error));
@@ -106,9 +107,6 @@ export const loginUser = createAsyncThunk<
 export const initAuth = createAsyncThunk(
   'user/initAuth',
   async (_, { dispatch }) => {
-    const userId = Cookies.get('user_id');
-    if (!userId) return null;
-
     const result = await dispatch(getMe());
     if (getMe.fulfilled.match(result)) {
       return result.payload;

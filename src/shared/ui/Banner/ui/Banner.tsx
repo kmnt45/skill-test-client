@@ -27,7 +27,7 @@ export const Banner: FC<BannerProps> = ({
         <Title level={2} className={styles.title}>
           {title}
         </Title>
-        <Paragraph className={styles.text}>{text}</Paragraph>
+        <Paragraph className={styles.paragraph} style={{ whiteSpace: 'pre-line' }}>{text}</Paragraph>
       </div>
       {link && (
         <Link href={link} target="_blank" rel="noopener noreferrer" className={styles.link}>

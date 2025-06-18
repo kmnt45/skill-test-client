@@ -3,10 +3,10 @@ import { LOADING_STAGE } from 'shared/constants/loadingStage';
 import { ApiStatusState } from 'shared/model/types';
 
 import { getCategories, getTopics } from './asyncThunks';
-import { Topic } from './types';
+import { Category, Topic } from './types';
 
 interface CategoriesState {
-  categories: ApiStatusState<string[]>;
+  categories: ApiStatusState<Category[]>;
   topics: ApiStatusState<Topic[]>;
 }
 
@@ -44,6 +44,7 @@ const categorySlice = createSlice({
       .addCase(getTopics.pending, (state) => {
         state.topics.apiStatus = LOADING_STAGE.LOADING;
         state.topics.apiError = null;
+        state.topics.apiData = null;
       })
       .addCase(getTopics.fulfilled, (state, { payload }) => {
         state.topics.apiStatus = LOADING_STAGE.LOAD;

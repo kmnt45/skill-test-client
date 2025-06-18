@@ -3,10 +3,10 @@ import { appAxios } from 'shared/api/appAxios';
 import { handleError } from 'shared/lib/handleError';
 import { ErrorMessageType } from 'shared/model/types';
 
-import { Topic } from '../types';
+import { Category, Topic } from '../types';
 
 export const getCategories = createAsyncThunk<
-  string[],
+  Category[],
   void,
   { rejectValue: ErrorMessageType }
 >('categories/getCategories', async (_, { rejectWithValue }) => {

@@ -1,5 +1,5 @@
 export interface Task {
-  slug: string;
+  path: string;
   title: string;
   points?: number;
   statement?: string;
@@ -24,6 +24,7 @@ export interface TestQuestion {
   progress: {total: number; current: number};
   code: string | null;
   answers: string[];
+  title: string;
 }
 
 export interface CheckAnswerResponse {

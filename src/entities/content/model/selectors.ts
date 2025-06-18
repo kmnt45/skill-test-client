@@ -14,7 +14,6 @@ export const selectSubmitResultError = (state: RootState) => state.content.submi
 export const selectCurrentQuestion = (state: RootState) => state.content.currentQuestion.apiData;
 export const selectCurrentQuestionStatus = (state: RootState) => state.content.currentQuestion.apiStatus;
 export const selectCurrentQuestionError = (state: RootState) => state.content.currentQuestion.apiError;
-
 // === Check Test Answer ===
 export const selectCheckResult = (state: RootState) => state.content.checkResult.apiData;
 export const selectCheckResultStatus = (state: RootState) => state.content.checkResult.apiStatus;

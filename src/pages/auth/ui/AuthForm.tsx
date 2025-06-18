@@ -20,6 +20,7 @@ type AuthFormProps<T extends FormikValues> = {
 
 export const AuthForm = <T extends FormikValues>({ fields, formik, submitLabel }: AuthFormProps<T>) => {
   const {pathname} = useLocation();
+
   const { errors, touched, getFieldProps, isValid, dirty, handleSubmit } = formik;
 
   return (

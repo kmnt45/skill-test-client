@@ -1,6 +1,6 @@
 import { RootState } from 'app/store';
 
-export const selectUsers = (state: RootState) => state.user.users;
+export const selectUsers = (state: RootState) => state.user.users.apiData;
 export const selectUsersData = (state: RootState) => state.user.users.apiData;
 export const selectUsersStatus = (state: RootState) => state.user.users.apiStatus;
 export const selectUsersError = (state: RootState) => state.user.users.apiError;

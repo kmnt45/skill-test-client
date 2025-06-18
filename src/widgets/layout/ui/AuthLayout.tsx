@@ -18,11 +18,12 @@ export const AuthLayout: FC = () => {
 
   const isResetPage = pathname === ROUTES.RESET_PASSWORD;
 
+  const isResetOrRestorePage = isRestorePage || isResetPage;
   
   return (
-    <div className={styles.authLayout}>
+    <div className={styles.authLayout} style={{ width: isResetOrRestorePage ? 'auto' : 800 }}>
       {isMainAuthPage && <AuthLeftPanel />}
-      <div className={styles.rightPanel}>
+      <div className={styles.rightPanel} style={{ height: isResetOrRestorePage ? 'auto' : 400}}>
         {isRestorePage && <BackButton />}
         <Flex style={{ marginBottom: 20 }} gap={10}>
           <Typography.Title style={{ margin: 0 }}>

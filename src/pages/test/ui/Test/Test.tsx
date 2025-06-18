@@ -1,10 +1,9 @@
 import { FC } from 'react';
 
-import { Spin, Button, Flex } from 'antd';
+import { Button, Flex, Spin } from 'antd';
 import { useTest } from 'pages/test/lib/useTest';
 import { AnswerList } from 'pages/test/ui/AnswerList/AnswerList';
-import { Header } from 'shared/ui';
-import { HeaderSec } from 'shared/ui/HeaderSec';
+import { Header, Markdown } from 'shared/ui';
 
 export const Test: FC = () => {
   const {
@@ -25,8 +24,8 @@ export const Test: FC = () => {
       ) : question && (
         <Flex vertical flex={1} gap={20} justify={'space-between'}>
           <Flex vertical gap={20} justify={'space-between'}>
-            <Header>Основы JavaScript</Header>
-            <HeaderSec>{question.question}</HeaderSec>
+            <Header>{question.title}</Header>
+            <Markdown content={question.question} />
             <AnswerList
               answers={question.answers}
               selected={selected}

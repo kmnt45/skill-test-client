@@ -26,16 +26,3 @@
   object-fit: cover;
   margin-right: 16px;
 }
-
-.name {
-  flex: 1;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-.points {
-  font-weight: 600;
-}

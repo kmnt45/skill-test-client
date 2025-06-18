@@ -1,27 +1,31 @@
 @use '../../../styles/mixins' as *;
 
-.cards {
+.categoriesWrapper {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 .card {
   @include container;
-  flex: 1;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+}
 
-  .container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+.categoryCard {
+  width: calc((100% - 40px) / 3); // 2 * 20px gap между 3 карточками
+  min-width: 250px;
+}
 
-  .subcategories {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subcategories {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

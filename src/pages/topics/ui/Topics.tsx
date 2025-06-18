@@ -31,7 +31,7 @@ export const Topics: FC = () => {
     if (categoryId) {
       dispatch(getTopics({ categoryId, basePath }));
     }
-  }, [categoryId]);
+  }, [basePath, categoryId, dispatch]);
 
   return (
     <>
