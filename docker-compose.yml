@@ -9,4 +9,4 @@ services:
     volumes:
       - /etc/letsencrypt/live/skill-test.ru/fullchain.pem:/etc/nginx/certs/fullchain.pem
       - /etc/letsencrypt/live/skill-test.ru/privkey.pem:/etc/nginx/certs/privkey.pem
-    env_file: .env.production
+    env_file: .env
