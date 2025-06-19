@@ -9,11 +9,11 @@ export const useResetPasswordForm = (token: string) => {
   return useAuthForm<ResetPasswordFormValues>({
     initialValues: resetPasswordInitialValues,
     validationSchema: validationResetPasswordSchema,
-    //@ts-expect-error
+    //@ts-expect-error refactor
     asyncThunk: resetPassword,
     successMessage: 'Пароль успешно изменён',
     errorMessage: 'Не удалось изменить пароль',
-    //@ts-expect-error
+    //@ts-expect-error refactor
     extraData: { token },
   });
 };

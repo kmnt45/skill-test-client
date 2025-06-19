@@ -7,7 +7,7 @@ export const useLoginForm = () => {
   return useAuthForm({
     initialValues: loginInitialValues,
     validationSchema: validationLoginSchema,
-    //@ts-expect-error
+    //@ts-expect-error refactor
     asyncThunk: loginUser,
     successMessage: 'Успешный вход в аккаунт',
     errorMessage: 'Неверные данные или ошибка сервера.',
