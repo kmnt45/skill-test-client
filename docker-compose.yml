@@ -1,10 +1,8 @@
-version: "3.8"
+version: '3.8'
 
 services:
   client:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - ./dist:/usr/share/nginx/html
-    env_file: .env
+    build: .
+    ports:
+      - "80:80"
+    restart: always
