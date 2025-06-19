@@ -1,15 +1,15 @@
 import { FC, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 import { getCategories, selectCategories, selectCategoriesStatus } from 'entities/category';
-import { ROUTES, LOADING_STAGE } from 'shared/constants';
+import { LOADING_STAGE } from 'shared/constants';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { Header, EmptyPlaceholder, Cards, Loader } from 'shared/ui';
 
 export const Categories: FC = () => {
   const dispatch = useAppDispatch();
 
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
 
   const categories = useAppSelector(selectCategories);
 
@@ -17,11 +17,11 @@ export const Categories: FC = () => {
 
   const isLoading = categoriesStatus === LOADING_STAGE.LOADING;
 
-  const pageTitle =
-    pathname === ROUTES.QUESTIONS ? 'ЛОлкек' :
-      pathname === ROUTES.TESTS ? 'Тесты' :
-        pathname === ROUTES.TASKS ? 'Задачи' :
-          'Категории';
+  // const pageTitle =
+  //   pathname === ROUTES.QUESTIONS ? 'Вопросы' :
+  //     pathname === ROUTES.TESTS ? 'Тесты' :
+  //       pathname === ROUTES.TASKS ? 'Задачи' :
+  //         'Категории';
 
   useEffect(() => {
     dispatch(getCategories());
@@ -29,7 +29,7 @@ export const Categories: FC = () => {
 
   return (
     <>
-      <Header>{pageTitle}</Header>
+      <Header>Тест</Header>
       {isLoading ?
         <Loader /> :
         categories?.length
