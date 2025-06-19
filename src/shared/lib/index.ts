@@ -1,2 +1,2 @@
-export { handleError } from './handleError';
+export { useHandleError } from './handleError';
 export { generateQuestionLink } from './generateQuestionLink';

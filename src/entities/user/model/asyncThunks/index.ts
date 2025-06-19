@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { appAxios } from 'shared/api/appAxios';
-import { handleError } from 'shared/lib/handleError';
+import { useHandleError } from 'shared/lib/handleError';
 import { ErrorMessageType } from 'shared/model/types';
 
 import { AuthResponse, LoginUser, RegisterUser } from '../types';
@@ -15,7 +15,7 @@ export const getMe = createAsyncThunk<
     const { data } = await appAxios.get('/users/me');
     return data;
   } catch (error) {
-    return rejectWithValue(handleError(error));
+    return rejectWithValue(useHandleError(error));
   }
 });
 
@@ -28,7 +28,7 @@ export const getUser = createAsyncThunk<
     const { data } = await appAxios.get(`/users/${id}`);
     return data;
   } catch (error) {
-    return rejectWithValue(handleError(error));
+    return rejectWithValue(useHandleError(error));
   }
 });
 
@@ -41,7 +41,7 @@ export const getUsers = createAsyncThunk<
     const { data } = await appAxios.get('/users');
     return data;
   } catch (error) {
-    return rejectWithValue(handleError(error));
+    return rejectWithValue(useHandleError(error));
   }
 });
 
@@ -54,7 +54,7 @@ export const updateUserProfile = createAsyncThunk<
     const { data: response } = await appAxios.patch('/users/me', data);
     return response;
   } catch (error) {
-    return rejectWithValue(handleError(error));
+    return rejectWithValue(useHandleError(error));
   }
 });
 
@@ -72,7 +72,7 @@ export const updateUserAvatar = createAsyncThunk<
     });
     return response;
   } catch (error) {
-    return rejectWithValue(handleError(error));
+    return rejectWithValue(useHandleError(error));
   }
 });
 
@@ -86,7 +86,7 @@ export const registerUser = createAsyncThunk<
     await dispatch(getMe());
     return data;
   } catch (error) {
-    return rejectWithValue(handleError(error));
+    return rejectWithValue(useHandleError(error));
   }
 });
 
@@ -100,7 +100,7 @@ export const loginUser = createAsyncThunk<
     await dispatch(getMe());
     return data;
   } catch (error) {
-    return rejectWithValue(handleError(error));
+    return rejectWithValue(useHandleError(error));
   }
 });
 
@@ -125,7 +125,7 @@ export const restorePassword = createAsyncThunk<
     const { data } = await appAxios.post('/auth/restore', payload);
     return data;
   } catch (error) {
-    return rejectWithValue(handleError(error));
+    return rejectWithValue(useHandleError(error));
   }
 });
 
@@ -140,7 +140,7 @@ export const resetPassword = createAsyncThunk<
       const { data } = await appAxios.post('/auth/reset-password', payload);
       return data;
     } catch (error) {
-      return rejectWithValue(handleError(error));
+      return rejectWithValue(useHandleError(error));
     }
   }
 );

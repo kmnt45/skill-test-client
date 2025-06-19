@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { appAxios } from 'shared/api/appAxios';
-import { handleError } from 'shared/lib/handleError';
+import { useHandleError } from 'shared/lib/handleError';
 import { ErrorMessageType } from 'shared/model/types';
 
 import {
@@ -23,7 +23,7 @@ export const getTestQuestion = createAsyncThunk<
     console.log(params.categoryId, params.testId, params.index)
     return data;
   } catch (error) {
-    return rejectWithValue(handleError(error));
+    return rejectWithValue(useHandleError(error));
   }
 });
 
@@ -39,7 +39,7 @@ export const checkTestAnswer = createAsyncThunk<
     );
     return data;
   } catch (error) {
-    return rejectWithValue(handleError(error));
+    return rejectWithValue(useHandleError(error));
   }
 });
 
@@ -57,7 +57,7 @@ export const submitTest = createAsyncThunk<
       );
       return data;
     } catch (error) {
-      return rejectWithValue(handleError(error));
+      return rejectWithValue(useHandleError(error));
     }
   }
 );
@@ -73,7 +73,7 @@ export const getTask = createAsyncThunk<
       const { data } = await appAxios.get(`/${categoryId}/tasks/${taskId}`);
       return data;
     } catch (error) {
-      return rejectWithValue(handleError(error));
+      return rejectWithValue(useHandleError(error));
     }
   }
 );
@@ -92,7 +92,7 @@ export const submitSolution = createAsyncThunk<
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(handleError(error));
+      return rejectWithValue(useHandleError(error));
     }
   }
 );
@@ -108,7 +108,7 @@ export const getQuestionsList = createAsyncThunk<
       const { data } = await appAxios.get(`${categoryId}/questions`);
       return data;
     } catch (error) {
-      return rejectWithValue(handleError(error));
+      return rejectWithValue(useHandleError(error));
     }
   }
 );
@@ -124,7 +124,7 @@ export const getQuestionContent = createAsyncThunk<
       const { data } = await appAxios.get(`${categoryId}/questions/${questionSlug}`);
       return { question: questionSlug, answer: data.content };
     } catch (error) {
-      return rejectWithValue(handleError(error));
+      return rejectWithValue(useHandleError(error));
     }
   }
 );
