@@ -68,7 +68,7 @@ export const ProfileView: FC<ProfileViewProps> = ({ apiData, daysOnService, isOw
         {history.length === 0 ? (
           <EmptyPlaceholder />
         ) : (
-          <Cards type="topics" data={history} />
+          <Cards type="topics" data={history} noLinks />
         )}
       </Flex>
     </Flex>
