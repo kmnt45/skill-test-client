@@ -51,8 +51,9 @@ export const useTest = () => {
         `Вы завершили тест: ${testResult.correctAnswers} из ${testResult.totalQuestions}, получено ${testResult.pointsEarned} баллов`
       );
       navigate(`/tests/${categoryId}`);
+      dispatch(resetTestResult());
     }
-  }, [testResult, categoryId, messageApi, navigate]);
+  }, [testResult, categoryId, messageApi, navigate, dispatch]);
 
   const handleSelect = useCallback((index: number) => {
     if (selected !== null || !categoryId || !testId) return;
