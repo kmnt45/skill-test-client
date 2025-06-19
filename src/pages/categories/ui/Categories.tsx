@@ -18,7 +18,7 @@ export const Categories: FC = () => {
   const isLoading = categoriesStatus === LOADING_STAGE.LOADING;
 
   const pageTitle =
-    pathname === ROUTES.QUESTIONS ? 'ТЕстовое' :
+    pathname === ROUTES.QUESTIONS ? 'Вопросы' :
       pathname === ROUTES.TESTS ? 'Тесты' :
         pathname === ROUTES.TASKS ? 'Задачи' :
           'Категории';
