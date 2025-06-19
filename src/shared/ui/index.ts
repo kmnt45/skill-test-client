@@ -8,3 +8,4 @@ export { Markdown } from './Markdown';
 export { CodeEditor } from './CodeEditor';
 export { Loader } from './Loader';
 export { Logo } from './Logo';
+export { TermsModal } from './TermsModal';

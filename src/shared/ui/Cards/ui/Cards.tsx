@@ -38,7 +38,7 @@ export const Cards: FC<CardsProps> = ({ data, type, noLinks }) => {
               <div key={user.id} className={styles.card}>
                 <Flex align="center" gap={20} justify={'space-between'}>
                   <Flex align={'center'} gap={20}>
-                    <Avatar src={user.avatar} size={48} />
+                    <Avatar src={user?.avatar || undefined} size={48} alt={user?.nickName}>{user?.nickName[0]}</Avatar>
                     <Text strong>{user.nickName}</Text>
                   </Flex>
                   <Text>{user.points}🔥</Text>

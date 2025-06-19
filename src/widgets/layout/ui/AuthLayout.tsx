@@ -23,7 +23,7 @@ export const AuthLayout: FC = () => {
   return (
     <div className={styles.authLayout} style={{ width: isResetOrRestorePage ? 'auto' : 800 }}>
       {isMainAuthPage && <AuthLeftPanel />}
-      <div className={styles.rightPanel} style={{ height: isResetOrRestorePage ? 'auto' : 400}}>
+      <div className={styles.rightPanel} style={{ height: isResetOrRestorePage ? 'auto' : 500}}>
         {isRestorePage && <BackButton />}
         <Flex style={{ marginBottom: 20 }} gap={10}>
           <Typography.Title style={{ margin: 0 }}>

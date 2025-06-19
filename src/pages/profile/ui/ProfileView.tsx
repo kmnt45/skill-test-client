@@ -36,11 +36,7 @@ export const ProfileView: FC<ProfileViewProps> = ({ apiData, daysOnService, isOw
                 />
               </Tooltip>
             )}
-            <Avatar
-              size={250}
-              src={apiData?.avatar || undefined}
-              alt={apiData?.nickName}
-            />
+            <Avatar src={apiData?.avatar || undefined} size={250} alt={apiData?.nickName}>{apiData?.nickName[0]}</Avatar>
           </Flex>
           <Title level={3} style={{ margin: 0 }}>
             {apiData?.nickName}

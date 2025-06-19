@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { Button, Flex, Spin } from 'antd';
 import { useTest } from 'pages/test/lib/useTest';
 import { AnswerList } from 'pages/test/ui/AnswerList/AnswerList';
-import { Header, Markdown } from 'shared/ui';
+import { Header } from 'shared/ui';
 
 export const Test: FC = () => {
   const {
@@ -25,7 +25,7 @@ export const Test: FC = () => {
         <Flex vertical flex={1} gap={20} justify={'space-between'}>
           <Flex vertical gap={20} justify={'space-between'}>
             <Header>{question.title}</Header>
-            <Markdown content={question.question} />
+            <Header>{question.question}</Header>
             <AnswerList
               answers={question.answers}
               selected={selected}
