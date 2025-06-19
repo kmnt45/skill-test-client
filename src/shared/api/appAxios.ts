@@ -22,15 +22,7 @@ appAxios.interceptors.response.use(
 
     originalRequest._retry = true;
 
-    const refreshResponse = await appAxios.get('/auth/refresh');
-
-    const newAccessToken = refreshResponse.data?.accessToken;
-    if (newAccessToken) {
-      originalRequest.headers = {
-        ...originalRequest.headers,
-        Authorization: `Bearer ${newAccessToken}`,
-      };
-    }
+    await appAxios.get('/auth/refresh');
 
     return appAxios(originalRequest);
   },
