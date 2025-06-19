@@ -1,6 +1,0 @@
-node_modules
-.env.example
-.gitignore
-Dockerfile
-eslint.config.js
-README.md
