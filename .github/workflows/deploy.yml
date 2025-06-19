@@ -27,19 +27,23 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           known_hosts: ${{ secrets.SERVER_HOST }}
 
-      - name: Deploy
+      - name: Deploy application
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ~/applications
-            git clone https://github.com/${{ github.repository }}.git skill-test-client
-            cd skill-test-client
+            cd /var/www/skill-test/client
+            if [ -d .git ]; then
+              git reset --hard
+              git clean -fd
+              git pull origin main
+            else
+              git clone https://github.com/${{ github.repository }}.git /var/www/skill-test/client
+              cd /var/www/skill-test/client
+            fi
             echo "${{ secrets.ENV }}" > .env
             sudo docker-compose down
             sudo docker system prune -f -a --volumes -f
             sudo docker-compose up --build -d
-            cd ..
-            rm -rf skill-test-client
