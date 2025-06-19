@@ -29,7 +29,7 @@ export const Categories: FC = () => {
 
   return (
     <>
-      <Header>{pageTitle}</Header>
+      <Header>Проверка ci/cd</Header>
       {isLoading ?
         <Loader /> :
         categories?.length
