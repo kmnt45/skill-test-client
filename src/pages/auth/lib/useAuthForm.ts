@@ -41,7 +41,7 @@ export function useAuthForm<T extends Record<string, unknown>>({
   const onSubmit = async (values: T, formikHelpers: FormikHelpers<T>) => {
     try {
       const payloadToSend = extraData ? { ...values, ...extraData } : values;
-      //@ts-ignore
+      //@ts-expect-error
       const resultAction = await dispatch(asyncThunk(payloadToSend));
 
       const payload = unwrapResult(resultAction);

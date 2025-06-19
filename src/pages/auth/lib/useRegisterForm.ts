@@ -7,7 +7,7 @@ export const useRegisterForm = () => {
   return useAuthForm({
     initialValues: registrationInitialValues,
     validationSchema: validationRegistrationSchema,
-    //@ts-ignore
+    //@ts-expect-error
     asyncThunk: registerUser,
     successMessage: 'Регистрация прошла успешно',
     errorMessage: 'Ошибка регистрации',
