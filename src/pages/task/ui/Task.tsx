@@ -82,12 +82,9 @@ export const Task: FC = () => {
               <Flex flex={1} className={styles.container}>
                 <CodeEditor value={code} language={language} onChange={setCode} />
               </Flex>
-              <Flex justify="space-between" gap={20}>
-                <Button type="dashed">Подсказка</Button>
-                <Button type="primary" onClick={onSubmit}>
-                  Проверить решение
-                </Button>
-              </Flex>
+              <Button type="primary" onClick={onSubmit}>
+                Проверить решение
+              </Button>
               {submitResult && (
                 <Text type={submitResult.success ? 'success' : 'danger'}>
                   {submitResult.message}
