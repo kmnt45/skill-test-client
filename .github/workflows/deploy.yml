@@ -1,5 +1,4 @@
 name: Deploy
-
 on:
   push:
     branches:
@@ -30,11 +29,6 @@ jobs:
 
       - name: Build client
         run: yarn build
-
-      - name: Prepare dist for deploy
-        run: |
-          mkdir dist-ready
-          cp -r dist/* dist-ready/
 
       - name: Clean dist folder on server
         uses: appleboy/ssh-action@master
